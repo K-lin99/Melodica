@@ -7,46 +7,40 @@ import Header from "./Header";
 import Footer from "./Footer";
 import GlobalStyles from "./GlobalStyles"
 import Profile from "./Profile";
-import Playlists from "./Playlists";
+import Playlist from "./Playlists";
 import Song from "./Song";
 import Exploration from "./Exploration";
 import Regions from "./Regions";
+import AfricaRegions from "./AfricaRegions";
+import AsiaRegions from "./AsiaRegions";
+import EuropeRegions from "./EuropeRegions";
+import NorthAmericaRegions from "./NorthAmericaRegions";
+import SouthAmericaRegions from "./SouthAmericaRegions";
+import OceaniaRegions from "./OceaniaRegions";
 
 
 const App = () => {
-    const CLIENT_ID = "b674889abfbe424cb4e47fe8af7f8148"
-    const REDIRECT_URI = "http://localhost:3000"
-    const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-    const RESPONSE_TYPE = "token"
-    const [token, setToken] = useState("")
-
-    const logout = () => {
-        setToken("")
-        window.localStorage.removeItem("token")
-    }
-
-    useEffect(() => {
-        const hash = window.location.hash
-        let token = window.localStorage.getItem("token")
     
-        if (!token && hash) {
-            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-    
-            window.location.hash = ""
-            window.localStorage.setItem("token", token)
+    // getting tracks
+    const getTracks = async () => {
+        let tracksParameters = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                
+            }
         }
+        fetch("https://api.spotify.com/v1/tracks?market=CA&ids=5hNHkrt2vJaABjgAHOdyQG%2C6YjnTgoNTiRKIcSGcFRZwE", tracksParameters)
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+    }
     
-        setToken(token)
-    
-    }, [])
+    getTracks();
 
     return(
         <Router>
             <GlobalStyles/>
-            {!token ?
-                    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-                        to Spotify</a>
-                    : <button onClick={logout}>Logout</button>}
             <Wrapper>
                 <Header/>
                 <Routes>
@@ -54,8 +48,14 @@ const App = () => {
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/explore" element={<Exploration/>}/>
                     <Route path="/explore/regions" element={<Regions/>}/>
-                    <Route path="/playlists" element={<Playlists/>}/>
-                    <Route path="/song" element={<Song/>}/>
+                    <Route path="/:playlist" element={<Playlist/>}/>
+                    <Route path="/:song" element={<Song/>}/>
+                    <Route path="/explore/africa" element={<AfricaRegions/>}/>
+                    <Route path="/explore/asia" element={<AsiaRegions/>}/>
+                    <Route path="/explore/europe" element={<EuropeRegions/>}/>
+                    <Route path="/explore/north-america" element={<NorthAmericaRegions/>}/>
+                    <Route path="/explore/south-america" element={<SouthAmericaRegions/>}/>
+                    <Route path="/explore/oceania" element={<OceaniaRegions/>}/>
                 </Routes>
                 <Footer/>
             </Wrapper>

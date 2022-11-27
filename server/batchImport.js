@@ -18,11 +18,11 @@ const batchImport = async () => {
         // declaring the database
         const db = client.db("Melodica");
         // creating users collection
-        await db.collection("users");
-        // creating favorites collection
         await db.collection("favorites");
         // creating playlists collection
         await db.collection("playlists");
+        // creating songs collection
+        await db.collection("songs");
     }
     catch(err) {
         // show error in console
