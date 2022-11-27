@@ -5,8 +5,8 @@ const { MongoClient } = require("mongodb")
 
 // // import Spotify API
 // const spotifyApi = new SpotifyWebApi({
-//     clientId: "b674889abfbe424cb4e47fe8af7f8148",
-//     clientSecret: "1ffe0f5be7074d6a857a0e96b3fe5aab",
+//     clientId: "",
+//     clientSecret: "",
 //     redirectUri: "http://localhost:3000"
 // })
 
