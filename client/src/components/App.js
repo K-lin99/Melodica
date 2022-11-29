@@ -17,9 +17,34 @@ import EuropeRegions from "./EuropeRegions";
 import NorthAmericaRegions from "./NorthAmericaRegions";
 import SouthAmericaRegions from "./SouthAmericaRegions";
 import OceaniaRegions from "./OceaniaRegions";
+import GetSongs from "./GetSongs";
 
 
 const App = () => {
+    const [token, setToken] = useState("")
+    const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_SECRET, REACT_APP_REDIRECT_URI, REACT_APP_AUTH_ENDPOINT, REACT_APP_RESPONSE_TYPE } = process.env
+
+    const logout = () => {
+        setToken("")
+        window.localStorage.removeItem("token")
+    }
+
+    useEffect(() => {
+        // getting API access Token
+        let authParameters = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "grant_type=client_credentials&client_id=" + REACT_APP_CLIENT_ID + "&client_secret=" + REACT_APP_CLIENT_SECRET
+        }
+        fetch("https://accounts.spotify.com/api/token", authParameters)
+            .then(res => res.json())
+            .then(data => setToken(data.access_token))
+            .catch(err => console.log(err))
+    }, [])
+
+    console.log(token);
     
     // getting tracks
     const getTracks = async () => {
@@ -27,7 +52,7 @@ const App = () => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                
+                "Authorization": "Bearer " + token
             }
         }
         fetch("https://api.spotify.com/v1/tracks?market=CA&ids=5hNHkrt2vJaABjgAHOdyQG%2C6YjnTgoNTiRKIcSGcFRZwE", tracksParameters)
@@ -36,12 +61,14 @@ const App = () => {
             .catch(err => console.log(err))
     }
     
-    getTracks();
-
     return(
         <Router>
             <GlobalStyles/>
             <Wrapper>
+            {!token ?
+                    <a onClick={<GetSongs token={token}/>}href={`${REACT_APP_AUTH_ENDPOINT}?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}&response_type=${REACT_APP_RESPONSE_TYPE}`}>Login
+                        to Spotify</a>
+                    : <button onClick={logout}>Logout</button>}
                 <Header/>
                 <Routes>
                     <Route path="/" element={<Home/>}/>

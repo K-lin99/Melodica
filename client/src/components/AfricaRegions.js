@@ -1,5 +1,5 @@
 import styled from "styled-components"
-
+import { Link } from "react-router-dom";
 
 const AfricaRegions = () => {
     return (
@@ -7,6 +7,7 @@ const AfricaRegions = () => {
         <p>North African</p>
         <p>Sub-Saharan</p>
         <p>South African</p>
+        <Link to="/explore"><button>Back to Exploration</button></Link>
     </Wrapper>
     )
 }

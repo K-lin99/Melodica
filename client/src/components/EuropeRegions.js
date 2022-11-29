@@ -1,14 +1,20 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import GetSongs from "./GetSongs";
 
 
 const EuropeRegions = () => {
+
+    
+
     return (
     <Wrapper>
-        <p>Western European</p>
+        <button onClick={() => {<GetSongs/>}}>Western European</button>
         <p>North European</p>
         <p>Celtic</p>
         <p>Eastern European</p>
         <p>Balkan</p>
+        <Link to="/explore"><button>Back to Exploration</button></Link>
     </Wrapper>
     )
 }

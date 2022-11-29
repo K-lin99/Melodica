@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom";
 
 
 const AsiaRegions = () => {
@@ -8,6 +9,7 @@ const AsiaRegions = () => {
         <p>Central Asian</p>
         <p>South-East Asian</p>
         <p>East Asian</p>
+        <Link to="/explore"><button>Back to Exploration</button></Link>
     </Wrapper>
     )
 }
