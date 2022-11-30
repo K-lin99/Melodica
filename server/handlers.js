@@ -19,7 +19,7 @@ const getRegionalArtists = async (req, res) => {
     const {region} = req.params;
     // declaring and assigning mongo info to client
     const client = new MongoClient(MONGO_URI, options)
- console.log(continent);
+    
     try {
         // connecting to client
         await client.connect();

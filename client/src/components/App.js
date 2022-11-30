@@ -1,6 +1,7 @@
 import React from "react";
 import {useEffect, useState} from 'react';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import styled from "styled-components";
 import Home from "./Home";
 import Header from "./Header";
@@ -17,7 +18,7 @@ import EuropeRegions from "./EuropeRegions";
 import NorthAmericaRegions from "./NorthAmericaRegions";
 import SouthAmericaRegions from "./SouthAmericaRegions";
 import OceaniaRegions from "./OceaniaRegions";
-import GetSongs from "./GetSongs";
+
 
 
 const App = () => {
@@ -46,27 +47,12 @@ const App = () => {
 
     console.log(token);
     
-    // getting tracks
-    const getTracks = async () => {
-        let tracksParameters = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            }
-        }
-        fetch("https://api.spotify.com/v1/tracks?market=CA&ids=5hNHkrt2vJaABjgAHOdyQG%2C6YjnTgoNTiRKIcSGcFRZwE", tracksParameters)
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
-    }
-    
     return(
         <Router>
             <GlobalStyles/>
             <Wrapper>
             {!token ?
-                    <a onClick={<GetSongs token={token}/>}href={`${REACT_APP_AUTH_ENDPOINT}?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}&response_type=${REACT_APP_RESPONSE_TYPE}`}>Login
+                    <a onClick={<ArtistsTracksContext token={token}/>}href={`${REACT_APP_AUTH_ENDPOINT}?client_id=${REACT_APP_CLIENT_ID}&redirect_uri=${REACT_APP_REDIRECT_URI}&response_type=${REACT_APP_RESPONSE_TYPE}`}>Login
                         to Spotify</a>
                     : <button onClick={logout}>Logout</button>}
                 <Header/>

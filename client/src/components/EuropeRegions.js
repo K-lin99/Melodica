@@ -1,19 +1,22 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import GetSongs from "./GetSongs";
-
+import { useContext } from "react";
+import { ArtistsTracksContext } from "./ArtistsTracksContext";
 
 const EuropeRegions = () => {
+    const {setContinent, setRegion} = useContext(ArtistsTracksContext);
 
+    const fetchAuthors = (event, region) => {
+        setContinent("Europe")
+        setRegion(region)
+    }
     
-
     return (
     <Wrapper>
-        <button onClick={() => {<GetSongs/>}}>Western European</button>
-        <p>North European</p>
-        <p>Celtic</p>
-        <p>Eastern European</p>
-        <p>Balkan</p>
+        <button onClick={event => fetchAuthors(event, "WesternEurope")}>Western European</button>
+        <button onClick={event => fetchAuthors(event, "NorthernEurope")}>North European</button>
+        <button onClick={event => fetchAuthors(event, "EasternEurope")}>Eastern European</button>
+        <button onClick={event => fetchAuthors(event, "NorthMediterranean")}>Mediterranean</button>
         <Link to="/explore"><button>Back to Exploration</button></Link>
     </Wrapper>
     )
