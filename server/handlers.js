@@ -3,7 +3,9 @@ const { MongoClient } = require("mongodb");
 // requiring dotenv
 const dotenv = require('dotenv');
 // requiring SpotifyWebApi
-const SpotifyWebApi = require("spotify-web-api-node")
+const SpotifyWebApi = require("spotify-web-api-node");
+// requiring querystring
+const querystring = require('node:querystring');
 
 dotenv.config();
 
@@ -21,6 +23,7 @@ const REDIRECT_URI = process.env.REDIRECT_URI
 // setting the credentials
 const spotifyApi = new SpotifyWebApi({
     clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET, 
     redirectUri: REDIRECT_URI
 });
 
@@ -34,16 +37,65 @@ const generateRandomString = length => {
     return text;
     };
 
-// initializing authorization scopes
-const scopes =["user-read-private", "playlist-modify-private"]
+const login = async (req, res) => {
+    try {
+            // initializing authorization scopes
+    const scopes =["user-read-private", "playlist-modify-public", "playlist-modify-private"]
 
-// initializing state
-const state = generateRandomString(16)
+    // initializing state
+    const state = generateRandomString(16)
 
 // creating authorization URL
 
 const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state)
+
 console.log(authorizeURL);
+        res.redirect(authorizeURL)
+    } catch (error) {
+        
+    }
+}
+
+const getCallback = async (req, res) => {
+
+    // code that's returned as a query param to the redirect URI
+    try {
+        const {code} = req.query;
+        console.log(req.query);
+    
+        // retrieving access and refresh tokens
+        const data = await spotifyApi.authorizationCodeGrant(code)
+            console.log('The token expires in ' + data.body['expires_in']);
+            console.log('The access token is ' + data.body['access_token']);
+            console.log('The refresh token is ' + data.body['refresh_token']);
+    
+        // setting access and refresh tokens on the API object for later use
+        spotifyApi.setAccessToken(data.body["access_token"]);
+        spotifyApi.setRefreshToken(data.body["refresh_token"]);
+
+        // passing the tokens to the FE as query params
+        const queryParams = querystring.stringify({
+            access_token: data.body["access_token"],
+            refresh_token: data.body["refresh_token"]
+        })
+    
+        res.redirect(`http://localhost:3000/?${queryParams}`)
+    
+        // refreshing access token
+        const newToken = await spotifyApi.refreshAccessToken()
+            console.log("The access token has been refreshed!");
+    
+        // saving the refreshed token
+        spotifyApi.setAccessToken(newToken.body["access_token"]);
+
+        res.send(newToken)
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 
 // returns an array of 5 artists based on a region
 const getRegionalArtists = async (req, res) => {
@@ -84,4 +136,4 @@ const getRegionalArtists = async (req, res) => {
 
 
 
-module.exports = { getRegionalArtists }
+module.exports = { getRegionalArtists, getCallback, login }

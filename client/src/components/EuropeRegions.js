@@ -17,7 +17,7 @@ const EuropeRegions = () => {
         <button onClick={event => fetchAuthors(event, "NorthernEurope")}>North European</button>
         <button onClick={event => fetchAuthors(event, "EasternEurope")}>Eastern European</button>
         <button onClick={event => fetchAuthors(event, "NorthMediterranean")}>Mediterranean</button>
-        <Link to="/explore"><button>Back to Exploration</button></Link>
+        <button>Back to Exploration</button>
     </Wrapper>
     )
 }

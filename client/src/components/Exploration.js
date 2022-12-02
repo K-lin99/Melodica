@@ -26,6 +26,8 @@ const Exploration = () => {
 
 const Wrapper = styled.div`
     background-color: #2E2E2E;
+    width: 100%;
+    height: 100%;
 `;
 
 const Africa = styled.img`

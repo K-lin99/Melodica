@@ -14,6 +14,8 @@ const REDIRECT_URI = process.env.REDIRECT_URI
 
 const { 
     getRegionalArtists,
+    getCallback,
+    login
 } = require("./handlers")
 
 express()
@@ -21,9 +23,12 @@ express()
     .use(express.json())
     .use(helmet())
     .use(morgan("tiny"))
-
+    // getting artists based on continent and region
     .get("/api/get-artists/:continent/:region", getRegionalArtists)
 
+    .get("/callback", getCallback)
+
+    .get("/login", login)
 
 
 
