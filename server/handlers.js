@@ -146,8 +146,35 @@ const getContinents = async (req, res) => {
         // selecting database
         const db = client.db("Melodica");
         let result = await db.collection("artists").find().toArray()
+        // result = result.map((element) => {
+        //     return element.Continent
+        // })
+        console.log(result);
+        res.status(200).json({ status: 200, data: result})
+    }
+    // catching and logging errors
+    catch (err){
+        console.log(err.message);
+        res.status(500).json({ status: 500, message: err.message})
+    }
+    // closing client
+    finally{
+        client.close();
+    }
+}
+
+const getRegion = async (req, res) => {
+    // declaring and assigning mongo info to client
+    const client = new MongoClient(MONGO_URI, options)
+    console.log("test1");
+    try {
+        // connecting to client
+        await client.connect();
+        // selecting database
+        const db = client.db("Melodica");
+        let result = await db.collection("artists").find().toArray()
         result = result.map((element) => {
-            return element.Continent
+            return element.Region
         })
         console.log(result);
         res.status(200).json({ status: 200, data: result})
@@ -164,5 +191,4 @@ const getContinents = async (req, res) => {
 }
 
 
-
-module.exports = { getRegionalArtists, getCallback, login, getContinents }
+module.exports = { getRegionalArtists, getCallback, login, getContinents, getRegion }

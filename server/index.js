@@ -12,7 +12,8 @@ const {
     getRegionalArtists,
     getCallback,
     login,
-    getContinents
+    getContinents,
+    getRegion
 } = require("./handlers")
 
 express()
@@ -28,6 +29,8 @@ express()
     .get("/login", login)
 
     .get("/continents", getContinents)
+
+    .get("/regions", getRegion)
 
 
 

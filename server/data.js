@@ -119,7 +119,7 @@ const artists = [
     {Continent: "South-America",
     Region: {
         "Portugese-Latino": [
-            {id: "2Kbh9OrNxoWkGWSgAGmYwr", name: "Rolando Boldrin & Renato Teixeira", country: "Brazil"},
+            {id: "6kWd6TXKoKInSv5tUTnJV1", name: "Rolando Boldrin & Renato Teixeira", country: "Brazil"},
             {id: "1HDCm1wr9wLKkuKUR641ay", name: "Claudionor Germano", country: "Brazil"},
             {id: "5mIZYxg9VOEiMpW4bgfeEZ", name: "Dércio Marques", country: "Brazil"},
             {id: "2PLF4pjm6A5eztTVbt9ou4", name: "Tião Carreiro e Pardinho", country: "Brazil"},
