@@ -5,13 +5,11 @@ import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import styled from "styled-components";
 import Home from "./Home";
 import Header from "./Header";
-import Footer from "./Footer";
 import GlobalStyles from "./GlobalStyles"
 import Profile from "./Profile";
 import Playlists from "./Playlists";
 import Song from "./Song";
 import Exploration from "./Exploration";
-import Regions from "./Regions";
 import AfricaRegions from "./AfricaRegions";
 import AsiaRegions from "./AsiaRegions";
 import EuropeRegions from "./EuropeRegions";
@@ -53,17 +51,15 @@ const App = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/explore" element={<Exploration/>}/>
-                    <Route path="/explore/regions" element={<Regions/>}/>
                     <Route path="/playlists" element={<Playlists/>}/>
                     <Route path="/track/:track" element={<Song/>}/>
-                    <Route path="/explore/africa" element={<AfricaRegions/>}/>
-                    <Route path="/explore/asia" element={<AsiaRegions/>}/>
-                    <Route path="/explore/europe" element={<EuropeRegions/>}/>
-                    <Route path="/explore/north-america" element={<NorthAmericaRegions/>}/>
-                    <Route path="/explore/south-america" element={<SouthAmericaRegions/>}/>
-                    <Route path="/explore/oceania" element={<OceaniaRegions/>}/>
+                    <Route path="/Explore/Africa" element={<AfricaRegions/>}/>
+                    <Route path="/Explore/Asia" element={<AsiaRegions/>}/>
+                    <Route path="/Explore/Europe" element={<EuropeRegions/>}/>
+                    <Route path="/Explore/North-America" element={<NorthAmericaRegions/>}/>
+                    <Route path="/Explore/South-America" element={<SouthAmericaRegions/>}/>
+                    <Route path="/Explore/Oceania" element={<OceaniaRegions/>}/>
                 </Routes>
-                <Footer/>
             </Wrapper>
         </Router>
     )

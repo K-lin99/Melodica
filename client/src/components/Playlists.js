@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
-import Song from "./Song";
 import styled from "styled-components"
 
 const Playlists = () => {
@@ -9,6 +8,7 @@ const Playlists = () => {
     const [trackIds, setTrackIds] = useState([]);
     const [reformattedTrackIds, setReformattedTrackIds] = useState([]);
     const [playlistTracks, setPlaylistTracks] = useState([]);
+
 
     // // creating playlist
     useEffect(() => {
@@ -25,17 +25,19 @@ const Playlists = () => {
         fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, playlistParameters)
         .then(response => response.json())
         .then(data => {
+            console.log(currentPlaylist);
             setCurrentPlaylist(data);
             setPlaylists((previousPlaylist) => [...previousPlaylist, data])
+            console.log(currentPlaylist);
         })
+        .catch(err => console.log(err))
     },[tracks])
 
 
     useEffect(() => {
-        
+        console.log(tracks); 
         if (tracks.length > 0 && tracks !== undefined) {
             // accessing tracks ids and formatting them for add tracks to playlist call
-            console.log(tracks); 
             setTrackIds((prevTrackIds) => {
                 Object.keys(tracks).forEach((index) => {
                     for (let i = 0; i < (tracks[index].tracks).length; i++) {
@@ -45,6 +47,7 @@ const Playlists = () => {
                 return prevTrackIds;
             })
             // selecting 15 random tracks from tracksIds array
+            console.log(trackIds);
             let arr = [];
             const removeRandomElements = (array) => {
                 for(let i = 0; i < 15; i++){
@@ -54,7 +57,6 @@ const Playlists = () => {
             }
             if (trackIds !== []){
                 setTrackIds(removeRandomElements(trackIds))
-                // formatting trackIds for get tracks call
             }
         }
     },[tracks])
@@ -76,7 +78,8 @@ const Playlists = () => {
         .then(data => {
             console.log(data);
         })
-    },[playlists])
+        .catch(err => console.log(err))
+    },[currentPlaylist])
 
     useEffect(() => {
         // reformatting track ids for get tracks fetch
@@ -96,26 +99,28 @@ const Playlists = () => {
         }
         fetch(`https://api.spotify.com/v1/tracks?market=CA&ids=${reformattedTrackIds}`, tracksParameters)
         .then(res => res.json())
-        .then(data => setPlaylistTracks(data))
+        .then(data => {
+            setPlaylistTracks(data)
+        })
         .catch(err => console.log(err))
         console.log((Object.values(playlistTracks))[0]);
-    },[playlists])
+    },[currentPlaylist])
     
     return (
         <Wrapper>
             {!currentPlaylist
             ?"Loading..."
             :<PlaylistInfo>
-                <h2>{currentPlaylist.name}</h2>
-                <p>{(currentPlaylist.owner).display_name}</p>
-                <a href={(currentPlaylist.external_urls).spotify} target="_blank">Check Playlist on Spotify</a>
+                <PlaylistName>{currentPlaylist.name}</PlaylistName>
+                <PlaylistOwner>{(currentPlaylist.owner).display_name}</PlaylistOwner>
+                <PlaylistLink href={(currentPlaylist.external_urls).spotify} target="_blank">Check Playlist on Spotify</PlaylistLink>
                 {!playlistTracks
                 ?"Loading..."
                 :<PlaylistDiv>
                 {(Object.values(playlistTracks))[0].map((track) => {
                     return (
                     <TrackDiv key={Math.floor(Math.random()*14000000000)}>
-                        <AlbumImg src={((track.album).images[2]).url}/>
+                        <AlbumImg src={((track.album).images[0]).url}/>
                         <TrackName>{track.name}</TrackName>
                         <TrackLink href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</TrackLink>
                         <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
@@ -131,15 +136,44 @@ const Playlists = () => {
 }
 
 const Wrapper = styled.div`
-
+    background-color: #222222;
 `;
 
-const PlaylistInfo = styled.div``;
+const PlaylistInfo = styled.div`
+    background-color: #222222;
+`;
 
-const PlaylistDiv = styled.div``;
+const PlaylistDiv = styled.div`
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 20px;
+    background-color: #222222;
+`;
+
+const PlaylistName = styled.h2`
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+`;
+
+const PlaylistOwner = styled.h3`
+    display: flex;
+    justify-content: center;
+`;
+
+const PlaylistLink = styled.a`
+    display: flex;
+    justify-content: center;
+    :hover {
+        color: #4EDEF0;
+    }
+`;
 
 const TrackDiv = styled.div`
-    border: 1px solid black;
+    border: 1px solid #4EDEF0;
+    width: 500px;
+    background-color: #2E2E2E;
 `;
 
 const AlbumImg = styled.img`
@@ -156,20 +190,33 @@ const TrackName = styled.h3`
 const TrackLink = styled.a`
     padding: 2px;
     display: block;
+    :hover {
+        color: #4EDEF0;
+    }
 `;
 
 const SecondTrackLink = styled(NavLink)`
     padding: 2px;
     display: block;
+    :hover {
+        color: #4EDEF0;
+    }
 `
 
 const ArtistLink = styled.a`
     padding: 2px;
     display: block;
+    :hover {
+        color: #4EDEF0;
+    }
 `;
 
 const AlbumLink = styled.a`
-
+    padding: 2px;
+    display: block;
+    :hover {
+        color: #4EDEF0;
+    }
 `;
 
 export default Playlists;

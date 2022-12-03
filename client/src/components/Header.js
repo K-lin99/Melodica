@@ -18,11 +18,17 @@ const Header = () => {
 }
 
 const Wrapper = styled.div`
-    background-color: #2E2E2E;
+    background-color: #222222;
+    border: 1px solid #4EDEF0;
+    padding: 2px;
 `;
 
 
 const Link = styled(NavLink)`
+    padding: 5px;
+    :hover {
+        color: #38E8FF;
+    }
 `;
 
 export default Header

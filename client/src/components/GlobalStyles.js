@@ -16,7 +16,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html, body, div {
-        color: #2E2E2E;
+        background-color: #222222;
     }
 
     html, body {
@@ -47,8 +47,9 @@ const GlobalStyles = createGlobalStyle`
         display: block;
     }
 
-    ol, ul {
+    ol, ul, li {
         list-style: none;
+        color: white;
     }
 
     a {
