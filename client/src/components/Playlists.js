@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
+import Song from "./Song";
 import styled from "styled-components"
 
 const Playlists = () => {
-    const {tracks, user, token, region} = useContext(ArtistsTracksContext);
-    const [currentPlaylist, setCurrentPlaylist] = useState("");
-    const [playlists, setPlaylists] = useState([]);
+    const {tracks, user, token, region, currentPlaylist, setCurrentPlaylist, playlists, setPlaylists} = useContext(ArtistsTracksContext);
     const [trackIds, setTrackIds] = useState([]);
+    const [reformattedTrackIds, setReformattedTrackIds] = useState([]);
+    const [playlistTracks, setPlaylistTracks] = useState([]);
 
-    // creating playlist
+    // // creating playlist
     useEffect(() => {
         const playlistParameters = {
             method: "POST",
@@ -24,36 +26,38 @@ const Playlists = () => {
         .then(response => response.json())
         .then(data => {
             setCurrentPlaylist(data);
-            playlists.push(data);
+            setPlaylists((previousPlaylist) => [...previousPlaylist, data])
         })
     },[tracks])
 
-    // accessing tracks ids and storing them into trackIds array
+
     useEffect(() => {
-        console.log(tracks);
-        Object.keys(tracks).forEach((artist) => {
-            for (let i = 0; i < 10; i++) {
-                trackIds.push(`spotify:track:${(tracks[artist].tracks)[i].id}`);
+        
+        if (tracks.length > 0 && tracks !== undefined) {
+            // accessing tracks ids and formatting them for add tracks to playlist call
+            console.log(tracks); 
+            setTrackIds((prevTrackIds) => {
+                Object.keys(tracks).forEach((index) => {
+                    for (let i = 0; i < (tracks[index].tracks).length; i++) {
+                        prevTrackIds.push(`spotify:track:${(tracks[index].tracks)[i].id}`);
+                    }
+                })
+                return prevTrackIds;
+            })
+            // selecting 15 random tracks from tracksIds array
+            let arr = [];
+            const removeRandomElements = (array) => {
+                for(let i = 0; i < 15; i++){
+                    arr[i] = array[Math.floor(Math.random() * array.length)]
+                    }
+                    return arr;
             }
-        })
-
-        // selecting 10 random tracks from tracksIds array
-        const removeRandomElements = (array) => {
-            for(let i = array.length; i > 10; i--){
-                array.splice(Math.floor(Math.random() * array.length), 1);
-                }
+            if (trackIds !== []){
+                setTrackIds(removeRandomElements(trackIds))
+                // formatting trackIds for get tracks call
+            }
         }
-        if (trackIds !== []){
-            removeRandomElements(trackIds)
-        }
-        console.log(trackIds);
-        console.log(trackIds.join());
-        console.log(currentPlaylist.id);
-        console.log(playlists);
-
     },[tracks])
-
-
 
     // adding tracks to playlist
     useEffect(() => {
@@ -74,9 +78,98 @@ const Playlists = () => {
         })
     },[playlists])
 
+    useEffect(() => {
+        // reformatting track ids for get tracks fetch
+        setReformattedTrackIds([]);
+        trackIds.map((id) => {
+            id = id.replace("spotify:track:", "")
+            reformattedTrackIds.push(id);
+        })
+
+        // getting the playlist tracks
+        let tracksParameters = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            }
+        }
+        fetch(`https://api.spotify.com/v1/tracks?market=CA&ids=${reformattedTrackIds}`, tracksParameters)
+        .then(res => res.json())
+        .then(data => setPlaylistTracks(data))
+        .catch(err => console.log(err))
+        console.log((Object.values(playlistTracks))[0]);
+    },[playlists])
+    
     return (
-        <h1>Playlist</h1>
+        <Wrapper>
+            {!currentPlaylist
+            ?"Loading..."
+            :<PlaylistInfo>
+                <h2>{currentPlaylist.name}</h2>
+                <p>{(currentPlaylist.owner).display_name}</p>
+                <a href={(currentPlaylist.external_urls).spotify} target="_blank">Check Playlist on Spotify</a>
+                {!playlistTracks
+                ?"Loading..."
+                :<PlaylistDiv>
+                {(Object.values(playlistTracks))[0].map((track) => {
+                    return (
+                    <TrackDiv key={Math.floor(Math.random()*14000000000)}>
+                        <AlbumImg src={((track.album).images[2]).url}/>
+                        <TrackName>{track.name}</TrackName>
+                        <TrackLink href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</TrackLink>
+                        <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
+                        <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
+                        <AlbumLink href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</AlbumLink>
+                    </TrackDiv>
+                    )
+                })}
+                </PlaylistDiv>}
+            </PlaylistInfo>}
+        </Wrapper>
     )
 }
+
+const Wrapper = styled.div`
+
+`;
+
+const PlaylistInfo = styled.div``;
+
+const PlaylistDiv = styled.div``;
+
+const TrackDiv = styled.div`
+    border: 1px solid black;
+`;
+
+const AlbumImg = styled.img`
+    float: left;
+    padding: 5px;
+    width: 100px;
+
+`;
+
+const TrackName = styled.h3`
+    
+`;
+
+const TrackLink = styled.a`
+    padding: 2px;
+    display: block;
+`;
+
+const SecondTrackLink = styled(NavLink)`
+    padding: 2px;
+    display: block;
+`
+
+const ArtistLink = styled.a`
+    padding: 2px;
+    display: block;
+`;
+
+const AlbumLink = styled.a`
+
+`;
 
 export default Playlists;

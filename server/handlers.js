@@ -111,7 +111,9 @@ const getRegionalArtists = async (req, res) => {
         // selecting database
         const db = client.db("Melodica");
         // storing found artists in result variable
+        console.log(continent, region);
         const result = await db.collection("artists").findOne({ Continent: continent })
+        console.log(result);
         // validating result
         if (!result.Region[region]){
             res.status(404).json({ status: 404, message: "Region Not Found"})
@@ -134,6 +136,33 @@ const getRegionalArtists = async (req, res) => {
     }
 }
 
+const getContinents = async (req, res) => {
+    // declaring and assigning mongo info to client
+    const client = new MongoClient(MONGO_URI, options)
+    console.log("test1");
+    try {
+        // connecting to client
+        await client.connect();
+        // selecting database
+        const db = client.db("Melodica");
+        let result = await db.collection("artists").find().toArray()
+        result = result.map((element) => {
+            return element.Continent
+        })
+        console.log(result);
+        res.status(200).json({ status: 200, data: result})
+    }
+    // catching and logging errors
+    catch (err){
+        console.log(err.message);
+        res.status(500).json({ status: 500, message: err.message})
+    }
+    // closing client
+    finally{
+        client.close();
+    }
+}
 
 
-module.exports = { getRegionalArtists, getCallback, login }
+
+module.exports = { getRegionalArtists, getCallback, login, getContinents }

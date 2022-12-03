@@ -8,14 +8,11 @@ dotenv.config()
 
 const port = 8000
 
-const CLIENT_ID = process.env.CLIENT_ID
-const CLIENT_SECRET = process.env.CLIENT_SECRET
-const REDIRECT_URI = process.env.REDIRECT_URI
-
 const { 
     getRegionalArtists,
     getCallback,
-    login
+    login,
+    getContinents
 } = require("./handlers")
 
 express()
@@ -29,6 +26,8 @@ express()
     .get("/callback", getCallback)
 
     .get("/login", login)
+
+    .get("/continents", getContinents)
 
 
 

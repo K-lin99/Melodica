@@ -10,11 +10,8 @@ export const ArtistsTracksProvider = ({children}) => {
     const [refreshToken, setRefreshToken] = useState("")
     const [tracks, setTracks] = useState([]);
     const [user, setUser] = useState([]);
-
-    // console.log(artists);
-    // console.log(continent);
-    // console.log(region);
-    console.log(token);
+    const [currentPlaylist, setCurrentPlaylist] = useState("");
+    const [playlists, setPlaylists] = useState([]);
 
     // fetching user profile data
     useEffect(() => {
@@ -29,7 +26,6 @@ export const ArtistsTracksProvider = ({children}) => {
         fetch("https://api.spotify.com/v1/me", profileParameters)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             setUser(data)
         })
         .catch((error) => {
@@ -65,15 +61,23 @@ export const ArtistsTracksProvider = ({children}) => {
             fetch(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?country=CA`, tracksParameters)
             .then(res => res.json())
             .then(data => {
-                tracks.push(data)
-                console.log(tracks);
+                // tracks.push(data)
+                // console.log(tracks);
+                setTracks((previousTracks) => [...previousTracks, data])
             })
             .catch(err => console.log(err))
     })
     },[artists])
 
+    console.log(`artists: ${artists}`);
+    console.log(`token: ${token}`);
+    console.log(`continent: ${continent}`);
+    console.log(`region: ${region}`);
+
+    
+
     return (
-        <ArtistsTracksContext.Provider value = {{setContinent, setRegion, region, tracks, token, setToken, user, refreshToken, setRefreshToken}}>
+        <ArtistsTracksContext.Provider value = {{setContinent, setRegion, region, tracks, token, setToken, user, refreshToken, setRefreshToken, currentPlaylist, playlists, setCurrentPlaylist, setPlaylists}}>
             {children}
         </ArtistsTracksContext.Provider>
     )

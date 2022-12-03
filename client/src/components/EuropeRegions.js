@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 
 const EuropeRegions = () => {
-    const {setContinent, setRegion} = useContext(ArtistsTracksContext);
+    const {setContinent, setRegion, currentPlaylist} = useContext(ArtistsTracksContext);
+    const navigate = useNavigate();
 
     const fetchAuthors = (event, region) => {
         setContinent("Europe")
@@ -13,10 +14,10 @@ const EuropeRegions = () => {
     
     return (
     <Wrapper>
-        <button onClick={event => fetchAuthors(event, "WesternEurope")}>Western European</button>
-        <button onClick={event => fetchAuthors(event, "NorthernEurope")}>North European</button>
-        <button onClick={event => fetchAuthors(event, "EasternEurope")}>Eastern European</button>
-        <button onClick={event => fetchAuthors(event, "NorthMediterranean")}>Mediterranean</button>
+        <button onClick={event => fetchAuthors(event, "Western-Europe")}>Western European</button>
+        <button onClick={event => fetchAuthors(event, "Northern-Europe")}>North European</button>
+        <button onClick={event => fetchAuthors(event, "Eastern-Europe")}>Eastern European</button>
+        <button onClick={event => fetchAuthors(event, "North-Mediterranean")}>Mediterranean</button>
         <button>Back to Exploration</button>
     </Wrapper>
     )

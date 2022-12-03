@@ -55,7 +55,7 @@ const App = () => {
                     <Route path="/explore" element={<Exploration/>}/>
                     <Route path="/explore/regions" element={<Regions/>}/>
                     <Route path="/playlists" element={<Playlists/>}/>
-                    <Route path="/:song" element={<Song/>}/>
+                    <Route path="/track/:track" element={<Song/>}/>
                     <Route path="/explore/africa" element={<AfricaRegions/>}/>
                     <Route path="/explore/asia" element={<AsiaRegions/>}/>
                     <Route path="/explore/europe" element={<EuropeRegions/>}/>

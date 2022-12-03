@@ -7,14 +7,14 @@ const SouthAmericaRegions = () => {
     const {setContinent, setRegion} = useContext(ArtistsTracksContext);
 
     const fetchAuthors = (event, region) => {
-        setContinent("SouthAmerica")
+        setContinent("South-America")
         setRegion(region)
     }
 
     return (
     <Wrapper>
-        <button onClick={event => fetchAuthors(event, "Brazil")}>Brazilian</button>
-        <button onClick={event => fetchAuthors(event, "Spanish")}>Spanish</button>
+        <button onClick={event => fetchAuthors(event, "Portugese-Latino")}>Brazilian</button>
+        <button onClick={event => fetchAuthors(event, "Spanish-Latino")}>Spanish</button>
         <Link to="/explore"><button>Back to Exploration</button></Link>
     </Wrapper>
     )

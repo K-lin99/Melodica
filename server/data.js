@@ -85,7 +85,7 @@ const artists = [
             {id: "7BiG7brYIL1Uhc0DWdumsR", name: "Juan Silos Jr.", country: "Philipines"},
         ]
     }},
-    {Continent: "NorthAmerica",
+    {Continent: "North-America",
     Region: {
         America: [
             {id: "3Ovf2lytXSXWFM2cwsJACC", name: "Lead Belly", country: "USA"},

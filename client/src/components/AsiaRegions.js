@@ -13,10 +13,10 @@ const AsiaRegions = () => {
     
     return (
     <Wrapper>
-        <button onClick={event => fetchAuthors(event, "MiddleEast")}>Middle Eastern</button>
-        <button onClick={event => fetchAuthors(event, "CentralAsia")}>Central Asian</button>
-        <button onClick={event => fetchAuthors(event, "SouthAsia")}>South-East Asian</button>
-        <button onClick={event => fetchAuthors(event, "EastAsia")}>East Asian</button>
+        <button onClick={event => fetchAuthors(event, "Middle-East")}>Middle Eastern</button>
+        <button onClick={event => fetchAuthors(event, "Central-Asia")}>Central Asian</button>
+        <button onClick={event => fetchAuthors(event, "South-Asia")}>South-East Asian</button>
+        <button onClick={event => fetchAuthors(event, "East-Asia")}>East Asian</button>
         <Link to="/explore"><button>Back to Exploration</button></Link>
     </Wrapper>
     )

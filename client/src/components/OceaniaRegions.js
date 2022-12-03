@@ -6,6 +6,7 @@ import { ArtistsTracksContext } from "./ArtistsTracksContext";
 const OceaniaRegions = () => {
     const {setContinent, setRegion} = useContext(ArtistsTracksContext);
 
+    // setting continent and region 
     const fetchAuthors = (event, region) => {
         setContinent("Oceania")
         setRegion(region)

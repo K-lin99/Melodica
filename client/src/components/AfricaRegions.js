@@ -13,9 +13,9 @@ const AfricaRegions = () => {
 
     return (
     <Wrapper>
-        <button onClick={event => fetchAuthors(event, "SouthMediterranean")}>North African</button>
-        <button onClick={event => fetchAuthors(event, "SubSahara")}>Sub-Saharan</button>
-        <button onClick={event => fetchAuthors(event, "SouthAfrica")}>South African</button>
+        <button onClick={event => fetchAuthors(event, "South-Mediterranean")}>North African</button>
+        <button onClick={event => fetchAuthors(event, "Sub-Sahara")}>Sub-Saharan</button>
+        <button onClick={event => fetchAuthors(event, "South-Africa")}>South African</button>
         <Link to="/explore"><button>Back to Exploration</button></Link>
     </Wrapper>
     )
