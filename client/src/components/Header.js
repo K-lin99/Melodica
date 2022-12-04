@@ -21,8 +21,9 @@ const Wrapper = styled.div`
     background-color: #222222;
     border: 1px solid #4EDEF0;
     padding: 2px;
+    display: flex;
+    justify-content: center;
 `;
-
 
 const Link = styled(NavLink)`
     padding: 5px;

@@ -79,7 +79,7 @@ const Playlists = () => {
             console.log(data);
         })
         .catch(err => console.log(err))
-    },[currentPlaylist])
+    },[currentPlaylist, trackIds])
 
     useEffect(() => {
         // reformatting track ids for get tracks fetch
@@ -104,7 +104,7 @@ const Playlists = () => {
         })
         .catch(err => console.log(err))
         console.log((Object.values(playlistTracks))[0]);
-    },[currentPlaylist])
+    },[currentPlaylist, trackIds])
     
     return (
         <Wrapper>
@@ -137,6 +137,7 @@ const Playlists = () => {
 
 const Wrapper = styled.div`
     background-color: #222222;
+    min-height: 230vh;
 `;
 
 const PlaylistInfo = styled.div`

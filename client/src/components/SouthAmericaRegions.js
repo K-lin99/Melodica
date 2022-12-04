@@ -6,14 +6,13 @@ import brazil from "../assets/Brazil.jpg";
 import southAmerica from "../assets/South-America.jpg";
 
 const SouthAmericaRegions = () => {
-    const {setContinent, setRegion, artists, tracks } = useContext(ArtistsTracksContext);
+    const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
 
     const fetchAuthors = (event, region) => {
         setContinent("South-America")
         setRegion(region)
     }
 
-    console.log(artists);
     console.log(tracks);
 
     return (

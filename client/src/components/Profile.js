@@ -6,6 +6,12 @@ import styled from "styled-components"
 const Profile = () => {
     const {user, token, currentPlaylist, setCurrentPlaylist, playlists, setPlaylists, favoriteTracks} = useContext(ArtistsTracksContext);
     const navigate = useNavigate();
+    const [buttonDisabled, setButtonDisabled] = useState(false) 
+
+    // enabling button if a new playlist is created 
+    useEffect (() => {
+        setButtonDisabled(false)
+    },[currentPlaylist])
 
     
 
@@ -26,12 +32,32 @@ const Profile = () => {
             .then(data => {
                 setCurrentPlaylist(data);
                 setPlaylists((previousPlaylist) => [...previousPlaylist, data])
+                console.log(currentPlaylist);
             })
-            console.log(currentPlaylist);
-            navigate(`/playlist/${currentPlaylist.id}`)
         }
-
+        console.log(currentPlaylist);
         // console.log(playlists);
+
+        // adding track to playlist
+        const addTrack = (event, trackID) => {
+            setButtonDisabled(true)
+            const playlistParameters = {
+                method: "POST",
+                body: JSON.stringify({
+                    uris: [trackID] ,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                }
+            }
+            fetch(`https://api.spotify.com/v1/playlists/${currentPlaylist.id}/tracks`, playlistParameters)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.log(err))
+        }
 
 
     return (
@@ -51,6 +77,10 @@ const Profile = () => {
                         <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
                         <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
                         <AlbumLink href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</AlbumLink>
+                        {buttonDisabled === false
+                        ?<AddSong onClick={event => addTrack(event, `spotify:track:${track.id}`)}>Add to your playlist</AddSong>
+                        :<Message>Track Added!</Message>}
+                        
                     </FavoriteSongs>
             )})}
         </Wrapper>
@@ -95,6 +125,7 @@ const NewPlaylist = styled.button`
     border: none;
     border-radius: 3px;
     padding: 2px;
+    cursor: pointer;
 `;
 
 const FavoriteSongs = styled.div`
@@ -148,6 +179,24 @@ const AlbumLink = styled.a`
     :hover {
         color: #38E8FF;
     }
+`;
+
+const AddSong = styled.button`
+    margin-top: 10px;
+    background-color: #2EC0D2;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+`;
+
+const Message = styled.p`
+    margin-top: 10px;
+    background-color: #2EC0D2;
+    text-align: center;
+    border-radius: 3px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
 `;
 
 export default Profile;

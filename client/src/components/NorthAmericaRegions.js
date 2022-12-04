@@ -1,27 +1,29 @@
 import styled from "styled-components"
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import america from "../assets/America.jpg";
 import canada from "../assets/Canada.jpg";
 import native from "../assets/Native.png";
 import centralAmerica from "../assets/Central-America.jpg";
+import TrackSearchBar from "./TrackSearchBar";
 
 
 const NorthAmericaRegions = () => {
-    const {setContinent, setRegion, artists, tracks } = useContext(ArtistsTracksContext);
+    const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
 
     const fetchAuthors = (event, region) => {
         setContinent("North-America")
         setRegion(region)
     }
 
-    console.log(artists);
     console.log(tracks);
 
     return (
     <Wrapper>
+        <SearchDiv>
+            <TrackSearchBar/>
+        </SearchDiv>
         <AmericaDiv>
             <Img src={america}/>
             <Description>Discover different musical styles from the USA!</Description>
@@ -53,6 +55,12 @@ const NorthAmericaRegions = () => {
 
 const Wrapper = styled.div`
     min-height: 165vh;
+`;
+
+const SearchDiv = styled.div`
+    padding: 20px;
+    position: absolute;
+    width: 500px;
 `;
 
 const Img = styled.img`

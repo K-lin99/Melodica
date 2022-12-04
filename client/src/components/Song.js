@@ -8,6 +8,7 @@ const Song = () => {
     const location = useLocation();
     const { favoriteTracks, setFavoriteTracks } = useContext(ArtistsTracksContext)
     const { track } = location.state
+    const [isFavorite, setIsFavorite] = useState(0)
     
     console.log(track);
 
@@ -30,8 +31,10 @@ const Song = () => {
 
     // storing liked tracks to favorite tracks array
     const AddToFavorite = () => {
+        setIsFavorite(1)
         setFavoriteTracks((previousTrack) => [...previousTrack, track])
     }
+    console.log(isFavorite);
 
     console.log(favoriteTracks);
 
@@ -45,7 +48,9 @@ const Song = () => {
                 <TrackLink href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</TrackLink>
                 <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
                 <AlbumLink href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</AlbumLink>
-            <Favorite onClick={AddToFavorite}>Favorite Track</Favorite>
+                {isFavorite === 0
+                ?<Favorite onClick={AddToFavorite}>Favorite Track</Favorite>
+                :<AiOutlineHeart style={iconStyle}/>}
             </SongInfo>
         </Wrapper>
     )
@@ -60,7 +65,9 @@ const Wrapper = styled.div`
 const SongInfo = styled.div`
     position: absolute;
     margin-top: 400px;
-    margin-left: 70px;
+    width: 300px;  
+    left: 50%;
+    transform: translate(-50%);
 `;
 
 const AlbumImg = styled.img`
@@ -79,6 +86,7 @@ const TrackName = styled.h3`
 
 const TrackLink = styled.a`
     padding: 2px;
+    text-align: center;
     display: block;
     :hover {
         color: #4EDEF0;
@@ -87,6 +95,7 @@ const TrackLink = styled.a`
 
 const ArtistLink = styled.a`
     padding: 2px;
+    text-align: center;
     display: block;
     :hover {
         color: #4EDEF0;
@@ -95,10 +104,12 @@ const ArtistLink = styled.a`
 
 const AlbumLink = styled.a`
     padding: 2px;
+    text-align: center;
     display: block;
     :hover {
         color: #4EDEF0;
     }
+    margin-bottom: 5px;
 `;
 
 const Duration = styled.p`
@@ -108,7 +119,18 @@ const Duration = styled.p`
 `;
 
 const Favorite = styled.button`
-    text-align: center;
+    position: absolute;
+    cursor: pointer;
+    margin-top: 10px;
+    left: 50%;
+    transform: translate(-50%);
 `;
+
+const iconStyle = {
+    position: "absolute",
+    left: "50%",
+    transform: "translate(-50%)",
+    color: "#4EDEF0"
+}
 
 export default Song;

@@ -1,9 +1,8 @@
 import {useEffect, useState, useContext} from 'react';
-import { Link } from "react-router-dom";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import styled from 'styled-components';
 
-const SearchBar = () => {
+const RegionSearchBar = () => {
     const [value, setValue] = useState("");
     const listDisplayer = [""];
     const {setContinent, setRegion} = useContext(ArtistsTracksContext);
@@ -25,7 +24,6 @@ const SearchBar = () => {
             regionNames.push(Object.keys(continent.Region))
         })    
         mergedRegionNames = (regionNames.flat(1));
-        // console.log(mergedRegionNames);
     }
 
     // retuning every region
@@ -35,7 +33,6 @@ const SearchBar = () => {
                 region
             )
         }
-        // console.log(region);
     })
 
     // function to fetch region authors on click
@@ -43,11 +40,6 @@ const SearchBar = () => {
         setContinent(continent)
         setRegion(region)
     }
-
-    // console.log(continents);
-    // console.log(continents[0].Continent);
-    // console.log(Object.keys(continents[0].Region));
-
 
     return (
         <Wrapper>
@@ -63,6 +55,7 @@ const SearchBar = () => {
                 return (
                 <Ul>
                     {filteredSuggestions.map((suggestion) => {
+                        // accessing selected region's continent
                         let continent = "";
                         if (continents !== []) {
                             continents.forEach((cont, index) => {
@@ -82,13 +75,6 @@ const SearchBar = () => {
                                         {(suggestion).substr((suggestion).indexOf(value.slice(-1)) + 1)}
                                     </Prediction>
                                 </span>
-                                {/* {Object.entries(categories).map((key) => {
-                                    if (key[0] === suggestion.categoryId){
-                                        return (
-                                            <p key={suggestion.categoryId}> {key[1].name} </p>
-                                        )
-                                    }
-                                })} */}
                             </Li>
                         )
                     })}
@@ -144,4 +130,4 @@ const Prediction = styled.span`
     font-weight: bold;
 `;
 
-export default SearchBar;
+export default RegionSearchBar;

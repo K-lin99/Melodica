@@ -7,7 +7,7 @@ import europe from "../assets/Europe.png";
 import northAmerica from "../assets/NorthAmerica.png";
 import southAmerica from "../assets/SouthAmerica.png";
 import oceania from "../assets/Oceania.png";
-import SearchBar from "./SearchBar";
+import RegionSearchBar from "./RegionSearchBar";
 
 const Exploration = () => {
 
@@ -15,7 +15,7 @@ const Exploration = () => {
     return (
         <Wrapper>
             <SearchDiv>
-                <SearchBar/>
+                <RegionSearchBar/>
             </SearchDiv>
             <Title>Select a Continent You'd Like to Explore</Title>
             <Link to="/Explore/Africa"><Africa src={africa}/></Link>
