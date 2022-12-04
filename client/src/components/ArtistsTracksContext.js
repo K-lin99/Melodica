@@ -11,7 +11,7 @@ export const ArtistsTracksProvider = ({children}) => {
     const [tracks, setTracks] = useState([]);
     const [user, setUser] = useState([]);
     const [currentPlaylist, setCurrentPlaylist] = useState("");
-    const [playlists, setPlaylists] = useState([]);
+    // const [playlists, setPlaylists] = useState([]);
     const [favoriteTracks, setFavoriteTracks] = useState([]);
 
     // fetching user profile data
@@ -69,15 +69,12 @@ export const ArtistsTracksProvider = ({children}) => {
     },[artists])
 
     console.log(`artists: ${artists}`);
-    console.log(`token: ${token}`);
-    console.log(`continent: ${continent}`);
-    console.log(`region: ${region}`);
     console.log(`tracks: ${tracks}`);
 
     
 
     return (
-        <ArtistsTracksContext.Provider value = {{setContinent, setRegion, region, tracks, token, setToken, user, refreshToken, setRefreshToken, currentPlaylist, playlists, setCurrentPlaylist, setPlaylists, favoriteTracks, setFavoriteTracks}}>
+        <ArtistsTracksContext.Provider value = {{setContinent, setRegion, region, tracks, token, setToken, user, refreshToken, setRefreshToken, currentPlaylist, setCurrentPlaylist, favoriteTracks, setFavoriteTracks}}>
             {children}
         </ArtistsTracksContext.Provider>
     )

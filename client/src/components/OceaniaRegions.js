@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import australia from "../assets/Australia.jpg";
 import aboriginal from "../assets/Aboriginal.jpg";
+import TrackSearchBar from "./TrackSearchBar";
 
 const OceaniaRegions = () => {
     const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
@@ -18,6 +19,9 @@ const OceaniaRegions = () => {
 
     return (
     <Wrapper>
+        <SearchDiv>
+            <TrackSearchBar/>
+        </SearchDiv>
         <AustraliaDiv>
             <Img src={australia}/>
             <Description>Discover different musical styles of Australia!</Description>
@@ -36,6 +40,12 @@ const OceaniaRegions = () => {
 }
 
 const Wrapper = styled.div`
+`;
+
+const SearchDiv = styled.div`
+    padding: 20px;
+    position: absolute;
+    width: 500px;
 `;
 
 const Img = styled.img`

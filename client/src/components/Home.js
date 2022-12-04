@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import background from "../assets/Home-Backround.jpg"
-import { NavLink } from "react-router-dom"
 
 const Home = () =>{
     return (
         <Wrapper>
             <HomeBackground src={background}/>
             <HomeTitle>Explore the Musical Riches of our World </HomeTitle>
-            <SiteGoal>The purpose of this website is to provide you the opportunity to discover traditional folk music from all over the World in an easy and fun way.</SiteGoal>
-            <Link to="/explore">Start Exploring</Link>
+            <SiteGoal>The purpose of this website is to provide you the opportunity to discover traditional folk music from all over the World in a practical way.</SiteGoal>
         </Wrapper>
     )
 }
@@ -42,17 +40,6 @@ const SiteGoal = styled.p`
     font-size: 20px;
     width: 450px;
     top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    z-index: 1;
-`;
-
-const Link = styled(NavLink)`
-    position: absolute;
-    font-size: 25px;
-    top: 60%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);

@@ -3,11 +3,14 @@ import { NavLink } from "react-router-dom";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import styled from "styled-components"
 
-const Playlists = () => {
-    const {tracks, user, token, region, currentPlaylist, setCurrentPlaylist, playlists, setPlaylists} = useContext(ArtistsTracksContext);
+
+const Playlist = () => {
+    const {tracks, user, token, region} = useContext(ArtistsTracksContext);
     const [trackIds, setTrackIds] = useState([]);
     const [reformattedTrackIds, setReformattedTrackIds] = useState([]);
     const [playlistTracks, setPlaylistTracks] = useState([]);
+    const [addedTracks, setAddedTracks] = useState(false);
+    const [currentPlaylist, setCurrentPlaylist] = useState("")
 
 
     // // creating playlist
@@ -25,13 +28,12 @@ const Playlists = () => {
         fetch(`https://api.spotify.com/v1/users/${user.id}/playlists`, playlistParameters)
         .then(response => response.json())
         .then(data => {
-            console.log(currentPlaylist);
             setCurrentPlaylist(data);
-            setPlaylists((previousPlaylist) => [...previousPlaylist, data])
-            console.log(currentPlaylist);
+            // setPlaylists((previousPlaylist) => [...previousPlaylist, data])
         })
         .catch(err => console.log(err))
     },[tracks])
+
 
 
     useEffect(() => {
@@ -47,7 +49,6 @@ const Playlists = () => {
                 return prevTrackIds;
             })
             // selecting 15 random tracks from tracksIds array
-            console.log(trackIds);
             let arr = [];
             const removeRandomElements = (array) => {
                 for(let i = 0; i < 15; i++){
@@ -77,9 +78,13 @@ const Playlists = () => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            setAddedTracks(true)
+            console.log(addedTracks);
         })
         .catch(err => console.log(err))
     },[currentPlaylist, trackIds])
+
+    console.log(addedTracks);
 
     useEffect(() => {
         // reformatting track ids for get tracks fetch
@@ -100,11 +105,12 @@ const Playlists = () => {
         fetch(`https://api.spotify.com/v1/tracks?market=CA&ids=${reformattedTrackIds}`, tracksParameters)
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             setPlaylistTracks(data)
         })
         .catch(err => console.log(err))
-        console.log((Object.values(playlistTracks))[0]);
-    },[currentPlaylist, trackIds])
+        // console.log((Object.values(playlistTracks))[0]);
+    },[currentPlaylist, trackIds, addedTracks])
     
     return (
         <Wrapper>
@@ -114,7 +120,7 @@ const Playlists = () => {
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
                 <PlaylistOwner>{(currentPlaylist.owner).display_name}</PlaylistOwner>
                 <PlaylistLink href={(currentPlaylist.external_urls).spotify} target="_blank">Check Playlist on Spotify</PlaylistLink>
-                {!playlistTracks
+                {!playlistTracks 
                 ?"Loading..."
                 :<PlaylistDiv>
                 {(Object.values(playlistTracks))[0].map((track) => {
@@ -136,12 +142,10 @@ const Playlists = () => {
 }
 
 const Wrapper = styled.div`
-    background-color: #222222;
     min-height: 230vh;
 `;
 
 const PlaylistInfo = styled.div`
-    background-color: #222222;
 `;
 
 const PlaylistDiv = styled.div`
@@ -149,7 +153,6 @@ const PlaylistDiv = styled.div`
     left: 50%;
     transform: translate(-50%);
     margin-top: 20px;
-    background-color: #222222;
 `;
 
 const PlaylistName = styled.h2`
@@ -220,4 +223,4 @@ const AlbumLink = styled.a`
     }
 `;
 
-export default Playlists;
+export default Playlist;

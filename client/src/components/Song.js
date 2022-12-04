@@ -8,9 +8,7 @@ const Song = () => {
     const location = useLocation();
     const { favoriteTracks, setFavoriteTracks } = useContext(ArtistsTracksContext)
     const { track } = location.state
-    const [isFavorite, setIsFavorite] = useState(0)
-    
-    console.log(track);
+    const [isFavorite, setIsFavorite] = useState(false)
 
     // padding seconds to 2 digits if less than 10
     const padTo2Digits = (num) => {
@@ -31,12 +29,16 @@ const Song = () => {
 
     // storing liked tracks to favorite tracks array
     const AddToFavorite = () => {
-        setIsFavorite(1)
+        setIsFavorite(true)
         setFavoriteTracks((previousTrack) => [...previousTrack, track])
     }
-    console.log(isFavorite);
 
-    console.log(favoriteTracks);
+
+    const removeFromFavorite = () => {
+        setIsFavorite(false)
+        const removal = favoriteTracks.filter(song => song !== track)
+        setFavoriteTracks(removal);
+    }
 
 
     return (
@@ -48,9 +50,9 @@ const Song = () => {
                 <TrackLink href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</TrackLink>
                 <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
                 <AlbumLink href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</AlbumLink>
-                {isFavorite === 0
+                {isFavorite === false
                 ?<Favorite onClick={AddToFavorite}>Favorite Track</Favorite>
-                :<AiOutlineHeart style={iconStyle}/>}
+                :<Favorite onClick={removeFromFavorite}>Unfavorite Track</Favorite>}
             </SongInfo>
         </Wrapper>
     )
@@ -121,6 +123,9 @@ const Duration = styled.p`
 const Favorite = styled.button`
     position: absolute;
     cursor: pointer;
+    background-color:#2EC0D2;
+    border: none;
+    border-radius: 10px;
     margin-top: 10px;
     left: 50%;
     transform: translate(-50%);

@@ -1,19 +1,13 @@
-import {useEffect, useState, useContext} from 'react';
-import { Link, useNavigate, NavLink } from "react-router-dom";
+import { useContext, useState } from 'react';
+import { NavLink } from "react-router-dom";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import styled from "styled-components"
 
 const Profile = () => {
-    const {user, token, currentPlaylist, setCurrentPlaylist, playlists, setPlaylists, favoriteTracks} = useContext(ArtistsTracksContext);
-    const navigate = useNavigate();
-    const [buttonDisabled, setButtonDisabled] = useState(false) 
+    const {user, token, playlists, setPlaylists, favoriteTracks} = useContext(ArtistsTracksContext);
+    const [currentPlaylist, setCurrentPlaylist] = useState("")
+    const [isAdded, setIsAdded] = useState(false)
 
-    // enabling button if a new playlist is created 
-    useEffect (() => {
-        setButtonDisabled(false)
-    },[currentPlaylist])
-
-    
 
         // creating playlist
         const createPlaylist = () => {
@@ -31,16 +25,12 @@ const Profile = () => {
             .then(response => response.json())
             .then(data => {
                 setCurrentPlaylist(data);
-                setPlaylists((previousPlaylist) => [...previousPlaylist, data])
-                console.log(currentPlaylist);
+                // setPlaylists((previousPlaylist) => [...previousPlaylist, data]);
             })
         }
-        console.log(currentPlaylist);
-        // console.log(playlists);
 
         // adding track to playlist
         const addTrack = (event, trackID) => {
-            setButtonDisabled(true)
             const playlistParameters = {
                 method: "POST",
                 body: JSON.stringify({
@@ -68,6 +58,8 @@ const Profile = () => {
                 <ProfileLink href={(user.external_urls).spotify} target="_blank">To Spotify Profile</ProfileLink>
                 <NewPlaylist onClick={createPlaylist}>+ Create Playlist</NewPlaylist>
             </ProfileInfo>
+            <TrackInfo>
+            <TrackTitle>Favorite Tracks</TrackTitle>
             {favoriteTracks.map((track) => {
                 return (
                     <FavoriteSongs key={Math.floor(Math.random()*14000000000)}>
@@ -77,18 +69,15 @@ const Profile = () => {
                         <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
                         <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
                         <AlbumLink href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</AlbumLink>
-                        {buttonDisabled === false
-                        ?<AddSong onClick={event => addTrack(event, `spotify:track:${track.id}`)}>Add to your playlist</AddSong>
-                        :<Message>Track Added!</Message>}
-                        
+                        <AddSong onClick={event => addTrack(event, `spotify:track:${track.id}`)}>Add to your playlist</AddSong>
                     </FavoriteSongs>
             )})}
+            </TrackInfo>
         </Wrapper>
     )
 };
 
 const Wrapper = styled.div`
-    background-color: #222222;
     display: flex;
     justify-content: center;
 `;
@@ -120,6 +109,16 @@ const ProfileLink = styled.a`
     }
 `;
 
+const TrackInfo = styled.div`
+    position: absolute;
+    margin-top: 352px;
+`;
+
+const TrackTitle = styled.h3`
+    text-align: center;
+    padding-top: 5px;
+`
+
 const NewPlaylist = styled.button`
     background-color: #2EC0D2;
     border: none;
@@ -129,8 +128,7 @@ const NewPlaylist = styled.button`
 `;
 
 const FavoriteSongs = styled.div`
-    position: absolute;
-    margin-top: 360px;;
+    margin-top: 20px;
     width: 550px;
     padding: 10px;
     border: 1px solid #38E8FF;

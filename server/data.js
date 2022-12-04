@@ -71,7 +71,7 @@ const artists = [
             {id: "0IRZ7bxSVw7TwjbjdF8ENH", name: "Davlatmand Kholov", country: "Tajikistan"}
         ],
         "South-Asia": [
-            {id: "69KndYMHGq62ku50ZOw7ea", name: "The Bauls of Bengal", country: "India"},
+            {id: "102bO0idLEns61TkTDgbQx", name: "Bauls of Bengal", country: "India"},
             {id: "0sbtGmW8r5bxfXzla8a7eI", name: "Sabri Brothers", country: "Pakistan"},
             {id: "52JvzTeaC2J0EsAPdGPMjV", name: "Mahori Kruang Sai Thai Ensemble", country: "Thailand"},
             {id: "0NgYfcC8HoiGmnAvqOWaA2", name: "Inle Myint Maung", country: "Burma"},

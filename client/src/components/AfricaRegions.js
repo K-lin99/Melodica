@@ -5,6 +5,7 @@ import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import north from "../assets/South-Mediterranean.jpeg";
 import central from "../assets/Central-Africa.jpg";
 import south from "../assets/South-Africa.jpg";
+import TrackSearchBar from "./TrackSearchBar";
 
 const AfricaRegions = () => {
     const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
@@ -18,6 +19,9 @@ const AfricaRegions = () => {
 
     return (
     <Wrapper>
+        <SearchDiv>
+            <TrackSearchBar/>
+        </SearchDiv>
         <NorthDiv>
             <Img src={north}/>
             <Description>Discover the music of the South Mediterranean!</Description>
@@ -43,6 +47,12 @@ const AfricaRegions = () => {
 
 const Wrapper = styled.div`
     min-height: 125vh;
+`;
+
+const SearchDiv = styled.div`
+    padding: 20px;
+    position: absolute;
+    width: 500px;
 `;
 
 const Img = styled.img`

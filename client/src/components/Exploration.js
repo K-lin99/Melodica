@@ -10,8 +10,6 @@ import oceania from "../assets/Oceania.png";
 import RegionSearchBar from "./RegionSearchBar";
 
 const Exploration = () => {
-
-
     return (
         <Wrapper>
             <SearchDiv>
@@ -47,42 +45,42 @@ const Title = styled.h1`
 const Africa = styled.img`
     position: absolute;
     margin-top: 210px;
-    margin-left: 565px;
+    margin-left: 765px;
     width: 300px;
 `;
 
 const Asia = styled.img`
     position: absolute;
     margin-top: 50px;
-    margin-left: 750px;
+    margin-left: 950px;
     width: 460px;
 `;
 
 const Europe = styled.img`
     position: absolute;
     margin-top: 37px;
-    margin-left: 585px;
+    margin-left: 785px;
     width: 270px;
 `;
 
 const NorthAmerica = styled.img`
     position: absolute;
     margin-top: 40px;
-    margin-left: 170px;
+    margin-left: 370px;
     width: 460px;
 `;
 
 const SouthAmerica = styled.img`
     position: absolute;
     margin-top: 268px;
-    margin-left: 326px;
+    margin-left: 526px;
     width: 215px;
 `;
 
 const Oceania = styled.img`
     position: absolute;
     margin-top: 350px;
-    margin-left: 1070px;
+    margin-left: 1270px;
     width: 250px;
 `;
 

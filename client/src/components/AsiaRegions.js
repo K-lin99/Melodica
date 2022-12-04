@@ -6,18 +6,21 @@ import west from "../assets/Middle-East.jpeg";
 import central from "../assets/Central-Asia.jpg";
 import east from "../assets/East-Asia.jpg";
 import south from "../assets/South-Asia.jpg";
+import TrackSearchBar from "./TrackSearchBar";
 
 const AsiaRegions = () => {
-    const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
+    const {setContinent, setRegion } = useContext(ArtistsTracksContext);
 
     const fetchAuthors = (event, region) => {
         setContinent("Asia")
         setRegion(region)
     }
-    console.log(tracks);
 
     return (
     <Wrapper>
+        <SearchDiv>
+            <TrackSearchBar/>
+        </SearchDiv>
         <WestDiv>
             <Img src={west}/>
             <Description>Discover different styles from the Middle East!</Description>
@@ -49,6 +52,12 @@ const AsiaRegions = () => {
 
 const Wrapper = styled.div`
     min-height: 165vh;
+`;
+
+const SearchDiv = styled.div`
+    padding: 20px;
+    position: absolute;
+    width: 500px;
 `;
 
 const Img = styled.img`

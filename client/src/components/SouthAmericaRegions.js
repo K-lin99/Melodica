@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import brazil from "../assets/Brazil.jpg";
 import southAmerica from "../assets/South-America.jpg";
+import TrackSearchBar from "./TrackSearchBar";
 
 const SouthAmericaRegions = () => {
     const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
@@ -17,6 +18,9 @@ const SouthAmericaRegions = () => {
 
     return (
     <Wrapper>
+        <SearchDiv>
+            <TrackSearchBar/>
+        </SearchDiv>
         <BrazilDiv>
             <Img src={brazil}/>
             <Description>Discover different musical styles from Brazil!</Description>
@@ -35,6 +39,12 @@ const SouthAmericaRegions = () => {
 }
 
 const Wrapper = styled.div`
+`;
+
+const SearchDiv = styled.div`
+    padding: 20px;
+    position: absolute;
+    width: 500px;
 `;
 
 const Img = styled.img`

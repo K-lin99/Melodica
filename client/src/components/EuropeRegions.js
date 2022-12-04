@@ -6,17 +6,22 @@ import west from "../assets/West-Europe.jpg";
 import north from "../assets/North-Europe.jpg";
 import east from "../assets/East-Europe.jpg";
 import mediterranean from "../assets/North-Mediterranean.jpeg";
+import TrackSearchBar from "./TrackSearchBar";
 
 const EuropeRegions = () => {
-    const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
+    const {setContinent, setRegion } = useContext(ArtistsTracksContext);
     const fetchAuthors = (event, region) => {
         setContinent("Europe")
         setRegion(region)
     }
-    console.log(tracks);
+
+    console.log("I rendered");
 
     return (
     <Wrapper>
+        <SearchDiv>
+            <TrackSearchBar/>
+        </SearchDiv>
         <WestDiv>
             <Img src={west}/>
             <Description>Discover different folk styles from Western Europe!</Description>
@@ -48,6 +53,12 @@ const EuropeRegions = () => {
 
 const Wrapper = styled.div`
     min-height: 165vh;
+`;
+
+const SearchDiv = styled.div`
+    padding: 20px;
+    position: absolute;
+    width: 500px;
 `;
 
 const Img = styled.img`

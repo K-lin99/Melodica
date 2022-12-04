@@ -12,14 +12,11 @@ const TrackSearchBar = () => {
     // accessing track names
     if (tracks !== [] && tracks !== undefined){
         tracks.map((artist, index) => {
-            console.log((Object.values(artist))[0]);
             (Object.values(artist))[0].map((track, index) => {
                 trackNames.push(track.name)
             })
         })
     }
-
-    console.log(trackNames);
 
     // returning every name
     const filteredSuggestions = trackNames.filter((trackName) =>{
@@ -29,12 +26,7 @@ const TrackSearchBar = () => {
                 )
         }                   
     })
-
-    // const navigateToTrack = (id) => {
-    //     navigate(`track/`)
-    // }
     
-
     return (
         <Wrapper>
             <Input
@@ -59,18 +51,13 @@ const TrackSearchBar = () => {
                                     if ((track.name).includes(suggestion)){
                                         trackId = track.id;
                                         trackInfo = track;
-                                        console.log(trackId);
-                                        console.log(trackInfo);
                                     }
                                 })
                             })
                         }
                         return(
                             <NavLink to={`/track/${trackId}`} state={{track: trackInfo}}>
-                            <Li
-                                key={Math.floor(Math.random()*14000000000)}
-                                // onClick={() => handleSelect(suggestion.title)}
-                            >
+                            <Li key={Math.floor(Math.random()*14000000000)}>
                                 <span key={Math.floor(Math.random()*14000000000)}>
                                     {(suggestion).substr(0, (suggestion).indexOf(value.slice(-1)) + 1)}
                                     <Prediction>
@@ -121,7 +108,7 @@ const Ul = styled.ul`
 `;
 
 const TrackLink = styled(NavLink)`
-
+    
 `;
 
 const Li = styled.li`
