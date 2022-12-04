@@ -22,7 +22,7 @@ const artists = [
             {id: "10aOaJc8X3gVtjq0wM7m2T", name: "Oratnitza", country: "Bulgaria"},
             {id: "6ejnOjBbGBvaPJ0jLMMLxC", name: "Sasha Zelkin", country: "Russia"}
         ],
-        "North-Mediterranean": [
+        "European-Mediterranean": [
             {id: "66fSx6FKclyaS6PUYx23ee", name: "Radio Tarifa", country: "Spain"},
             {id: "5EQMO0g2Ley9i4VlOwYQt5", name: "Eugenio Bennato", country: "Italy"},
             {id: "5BHGIdYuoOW01ip5QZLIKP", name: "Brigada Victor Jara", country: "Portugal"},
@@ -32,14 +32,14 @@ const artists = [
     }},
     {Continent: "Africa",
     Region: {
-        "South-Mediterranean": [
+        "African-Mediterranean": [
             {id: "040hze5aLmq4IDXPDQfUDL", name: "Nass El Ghiwane", country: "Morocco"},
             {id: "364dHqe2BwXqmOhgdBXpw8", name: "Cheikha Rimitti", country: "Algeria"},
             {id: "2UnyqlAyvne5m5dAo1czho", name: "Le Malouf Tunisien", country: "Tunisia"},
             {id: "6IW026WCYU8L1WF79dfwss", name: "Abdel Halim Hafez", country: "Egypt"},
             {id: "2pTa7xMuT8CclPm0Ch0a5T", name: "Beihdja Rahal", country: "Algeria"}
         ],
-        "Sub-Sahara": [
+        "Central-Africa": [
             {id: "7HAuGBgyiW6xu9tARZUObr", name: "Mansour Seck", country: "Senegal"},
             {id: "7Eg9NJC0jFmuEtqT1N5Bdv", name: "Tshala Muana", country: "Congo"},
             {id: "1qR8WMddpM1skrmubxWZPG", name: "Dr Errol Leighton", country: "Cameroon"},
@@ -56,7 +56,7 @@ const artists = [
     }},
     {Continent: "Asia",
     Region: {
-        "Middle-East": [
+        "West-Asia": [
             {id: "3meYUCHyh5OayViOog5daw", name: "Shahram Nazeri", country: "Iran"},
             {id: "5Oo6D3FLRpWjgBn0mqfiA3", name: "Yeni Türkü", country: "Turkey"},
             {id: "3pBRcbWKXI0PmYQ42GxPCk", name: "The Jewish Starlight Orchestra", country: "Israel"},
@@ -118,14 +118,14 @@ const artists = [
     }},
     {Continent: "South-America",
     Region: {
-        "Portugese-Latino": [
+        "Brazilian-America": [
             {id: "6kWd6TXKoKInSv5tUTnJV1", name: "Rolando Boldrin & Renato Teixeira", country: "Brazil"},
             {id: "1HDCm1wr9wLKkuKUR641ay", name: "Claudionor Germano", country: "Brazil"},
             {id: "5mIZYxg9VOEiMpW4bgfeEZ", name: "Dércio Marques", country: "Brazil"},
             {id: "2PLF4pjm6A5eztTVbt9ou4", name: "Tião Carreiro e Pardinho", country: "Brazil"},
             {id: "2ZofT7n9AlTKf7KDCoHGgD", name: "Luiz Gonzaga", country: "Brazil"}
         ],
-        "Spanish-Latino": [
+        "Spanish-America": [
             {id: "5KyE03kjGuutFNGwN2K48c", name: "Anibal Velasquez Y Su Conjunto", country: "Colombia"},
             {id: "4o28hZJdDFqDpg6WcGAJ51", name: "Amanda Portales", country: "Peru"},
             {id: "0t8lKcdJV0dEicuocOteOw", name: "Los Chalchaleros", country: "Argentina"},
