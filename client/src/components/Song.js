@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
-import {AiOutlineHeart} from "react-icons/ai"
 import styled from "styled-components"
 
 const Song = () => {

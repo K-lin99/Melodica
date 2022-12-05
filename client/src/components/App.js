@@ -1,8 +1,5 @@
 import React from "react";
-import {useEffect, useState, useContext} from 'react';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
-import { ArtistsTracksContext } from "./ArtistsTracksContext";
-import styled from "styled-components";
 import Home from "./Home";
 import Header from "./Header";
 import GlobalStyles from "./GlobalStyles"
@@ -16,6 +13,7 @@ import EuropeRegions from "./EuropeRegions";
 import NorthAmericaRegions from "./NorthAmericaRegions";
 import SouthAmericaRegions from "./SouthAmericaRegions";
 import OceaniaRegions from "./OceaniaRegions";
+import CustomPlaylist from "./CustomPlaylist";
 
 const App = () => {
     return(
@@ -27,6 +25,7 @@ const App = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/explore" element={<Exploration/>}/>
+                    <Route path="/playlist/:playlist" element={<CustomPlaylist/>}/>
                     <Route path="/playlist" element={<Playlist/>}/>
                     <Route path="/track/:track" element={<Song/>}/>
                     <Route path="/Explore/Africa" element={<AfricaRegions/>}/>

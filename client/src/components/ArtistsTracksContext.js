@@ -11,8 +11,9 @@ export const ArtistsTracksProvider = ({children}) => {
     const [tracks, setTracks] = useState([]);
     const [user, setUser] = useState([]);
     const [currentPlaylist, setCurrentPlaylist] = useState("");
-    // const [playlists, setPlaylists] = useState([]);
+    const [playlists, setPlaylists] = useState([]);
     const [favoriteTracks, setFavoriteTracks] = useState([]);
+    const [addedTracks, setAddedTracks] = useState([]);
 
     // fetching user profile data
     useEffect(() => {
@@ -74,7 +75,7 @@ export const ArtistsTracksProvider = ({children}) => {
     
 
     return (
-        <ArtistsTracksContext.Provider value = {{setContinent, setRegion, region, tracks, token, setToken, user, refreshToken, setRefreshToken, currentPlaylist, setCurrentPlaylist, favoriteTracks, setFavoriteTracks}}>
+        <ArtistsTracksContext.Provider value = {{ addedTracks, setAddedTracks, playlists, setPlaylists, setContinent, setRegion, region, tracks, token, setToken, user, refreshToken, setRefreshToken, currentPlaylist, setCurrentPlaylist, favoriteTracks, setFavoriteTracks}}>
             {children}
         </ArtistsTracksContext.Provider>
     )
