@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 
 const Header = () => {
-    const { tracks, token, setToken, refreshToken, setRefreshToken } = useContext(ArtistsTracksContext);
+    const { tracks, token, setToken, refreshToken, setRefreshToken, region } = useContext(ArtistsTracksContext);
 
     // function to logout
     const logout = () => {
@@ -35,6 +35,9 @@ const Header = () => {
             {tracks.length < 5
             ?""
             :<Link to="/playlist">+ Playlist</Link>}
+            {region === "" 
+            ?""
+            :<Region>Region: {region}</Region>}
                     </ConditionalWrapper>}
         </Wrapper>
     )
@@ -62,12 +65,19 @@ const LoginAnchor = styled.a`
     }
 `;
 
+const Region = styled.p`
+    position: absolute;
+    font-weight: lighter;
+    margin-left: 350px;
+`;
+
 const LogoutButton = styled.button`
     position: absolute;
     margin-left: 44%;
     background-color:#2EC0D2;
     border: none;
     border-radius: 10px;
+    padding: 5px;
     cursor: pointer;
 `;
 

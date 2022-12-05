@@ -18,7 +18,7 @@ const Playlist = () => {
         const playlistParameters = {
             method: "POST",
             body: JSON.stringify({
-                name: `${region} playlist`,
+                name: `${region} Playlist`,
                 public: false}), 
             headers: {
                 "Content-Type": "application/json",
