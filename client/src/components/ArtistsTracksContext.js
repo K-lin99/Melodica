@@ -69,11 +69,6 @@ export const ArtistsTracksProvider = ({children}) => {
     })
     },[artists])
 
-    console.log(`artists: ${artists}`);
-    console.log(`tracks: ${tracks}`);
-
-    
-
     return (
         <ArtistsTracksContext.Provider value = {{ addedTracks, setAddedTracks, playlists, setPlaylists, setContinent, setRegion, region, tracks, token, setToken, user, refreshToken, setRefreshToken, currentPlaylist, setCurrentPlaylist, favoriteTracks, setFavoriteTracks}}>
             {children}

@@ -7,17 +7,16 @@ import southAmerica from "../assets/South-America.jpg";
 import TrackSearchBar from "./TrackSearchBar";
 
 const SouthAmericaRegions = () => {
-    const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
+    const {setContinent, setRegion } = useContext(ArtistsTracksContext);
 
+    // setting region and continent state to fetch authors in context
     const fetchAuthors = (event, region) => {
         setContinent("South-America")
         setRegion(region)
     }
 
-    console.log(tracks);
-
     return (
-    <Wrapper>
+    <div>
         <SearchDiv>
             <TrackSearchBar/>
         </SearchDiv>
@@ -34,12 +33,9 @@ const SouthAmericaRegions = () => {
             <Button onClick={event => fetchAuthors(event, "Spanish-America")}>Discover</Button>
         </SpanishDiv>
         <Link to="/explore"><BackButton>Back to Exploration</BackButton></Link>
-    </Wrapper>
+    </div>
     )
 }
-
-const Wrapper = styled.div`
-`;
 
 const SearchDiv = styled.div`
     padding: 20px;

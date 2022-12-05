@@ -11,9 +11,7 @@ const port = 8000
 const { 
     getRegionalArtists,
     getCallback,
-    login,
     getContinents,
-    getRegion
 } = require("./handlers")
 
 express()
@@ -24,15 +22,11 @@ express()
     // getting artists based on continent and region
     .get("/api/get-artists/:continent/:region", getRegionalArtists)
 
+    // getting callback
     .get("/callback", getCallback)
 
-    .get("/login", login)
-
+    // getting entire artists database
     .get("/continents", getContinents)
-
-    .get("/regions", getRegion)
-
-
 
     .listen(port, () => {
         console.log(`Example app listening on port ${port}`)

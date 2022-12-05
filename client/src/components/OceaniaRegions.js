@@ -9,7 +9,7 @@ import TrackSearchBar from "./TrackSearchBar";
 const OceaniaRegions = () => {
     const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
 
-    // setting continent and region 
+    // setting region and continent state to fetch authors in context
     const fetchAuthors = (event, region) => {
         setContinent("Oceania")
         setRegion(region)

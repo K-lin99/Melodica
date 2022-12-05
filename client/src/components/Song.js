@@ -5,9 +5,9 @@ import styled from "styled-components"
 
 const Song = () => {
     const location = useLocation();
-    const { favoriteTracks, setFavoriteTracks } = useContext(ArtistsTracksContext)
-    const { track } = location.state
-    const [isFavorite, setIsFavorite] = useState(false)
+    const { favoriteTracks, setFavoriteTracks } = useContext(ArtistsTracksContext);
+    const { track } = location.state;
+    const [isFavorite, setIsFavorite] = useState(false);
 
     // check if track is already favorite
     useEffect(() => {
@@ -42,8 +42,14 @@ const Song = () => {
     // remove tracks from favorite tracks array
     const removeFromFavorite = () => {
         setIsFavorite(false)
-        setFavoriteTracks(favoriteTracks.filter((value, index) => {
-            return index !== (favoriteTracks.length - 1)
+        let songIndex = null
+        favoriteTracks.forEach((song, index) => {
+            if(song.id === track.id){
+                songIndex = index;
+            }
+        })
+        setFavoriteTracks(favoriteTracks.filter((song, index) => {
+            return songIndex !== index;
         }))
     } 
 
@@ -136,12 +142,5 @@ const Favorite = styled.button`
     left: 50%;
     transform: translate(-50%);
 `;
-
-const iconStyle = {
-    position: "absolute",
-    left: "50%",
-    transform: "translate(-50%)",
-    color: "#4EDEF0"
-}
 
 export default Song;

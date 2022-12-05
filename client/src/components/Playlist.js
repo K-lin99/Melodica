@@ -10,10 +10,10 @@ const Playlist = () => {
     const [reformattedTrackIds, setReformattedTrackIds] = useState([]);
     const [playlistTracks, setPlaylistTracks] = useState([]);
     const [addedTracks, setAddedTracks] = useState(false);
-    const [currentPlaylist, setCurrentPlaylist] = useState("")
+    const [currentPlaylist, setCurrentPlaylist] = useState("");
 
 
-    // // creating playlist
+    // creating playlist
     useEffect(() => {
         const playlistParameters = {
             method: "POST",
@@ -33,8 +33,6 @@ const Playlist = () => {
         })
         .catch(err => console.log(err))
     },[tracks])
-
-
 
     useEffect(() => {
         console.log(tracks); 
@@ -77,14 +75,10 @@ const Playlist = () => {
         fetch(`https://api.spotify.com/v1/playlists/${currentPlaylist.id}/tracks`, playlistParameters)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             setAddedTracks(true)
-            console.log(addedTracks);
         })
         .catch(err => console.log(err))
     },[currentPlaylist, trackIds])
-
-    console.log(addedTracks);
 
     useEffect(() => {
         // reformatting track ids for get tracks fetch
@@ -113,10 +107,10 @@ const Playlist = () => {
     },[currentPlaylist, trackIds, addedTracks])
     
     return (
-        <Wrapper>
+        <div>
             {!currentPlaylist
             ?"Loading..."
-            :<PlaylistInfo>
+            :<div>
                 <PlaylistName>{currentPlaylist.name}</PlaylistName>
                 <PlaylistOwner>{(currentPlaylist.owner).display_name}</PlaylistOwner>
                 <PlaylistLink href={(currentPlaylist.external_urls).spotify} target="_blank">Check Playlist on Spotify</PlaylistLink>
@@ -127,7 +121,7 @@ const Playlist = () => {
                     return (
                     <TrackDiv key={Math.floor(Math.random()*14000000000)}>
                         <AlbumImg src={((track.album).images[0]).url}/>
-                        <TrackName>{track.name}</TrackName>
+                        <h3>{track.name}</h3>
                         <TrackLink href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</TrackLink>
                         <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
                         <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
@@ -136,17 +130,10 @@ const Playlist = () => {
                     )
                 })}
                 </PlaylistDiv>}
-            </PlaylistInfo>}
-        </Wrapper>
+            </div>}
+        </div>
     )
 }
-
-const Wrapper = styled.div`
-    min-height: 230vh;
-`;
-
-const PlaylistInfo = styled.div`
-`;
 
 const PlaylistDiv = styled.div`
     position: absolute;
@@ -184,11 +171,6 @@ const AlbumImg = styled.img`
     float: left;
     padding: 5px;
     width: 100px;
-
-`;
-
-const TrackName = styled.h3`
-    
 `;
 
 const TrackLink = styled.a`
@@ -205,7 +187,7 @@ const SecondTrackLink = styled(NavLink)`
     :hover {
         color: #4EDEF0;
     }
-`
+`;
 
 const ArtistLink = styled.a`
     padding: 2px;

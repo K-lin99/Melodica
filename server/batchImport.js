@@ -8,10 +8,10 @@ const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true
 };
-console.log(artists);
+
 const batchImport = async () => {
     // creating new client
-    const client = new MongoClient(MONGO_URI, options)
+    const client = new MongoClient(MONGO_URI, options);
 
     try {
         // connecting to client
@@ -22,12 +22,6 @@ const batchImport = async () => {
         const artistsCollection = db.collection("artists");
         // inserting artist data to collection
         await artistsCollection.insertMany(artists);
-        // creating users collection
-        // await db.collection("favorites");
-        // // creating playlists collection
-        // await db.collection("playlists");
-        // // creating songs collection
-        // await db.collection("songs");
     }
     catch(err) {
         // show error in console

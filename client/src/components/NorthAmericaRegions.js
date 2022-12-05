@@ -10,14 +10,13 @@ import TrackSearchBar from "./TrackSearchBar";
 
 
 const NorthAmericaRegions = () => {
-    const {setContinent, setRegion, tracks } = useContext(ArtistsTracksContext);
+    const {setContinent, setRegion } = useContext(ArtistsTracksContext);
 
+    // setting region and continent state to fetch authors in context
     const fetchAuthors = (event, region) => {
         setContinent("North-America")
         setRegion(region)
     }
-
-    console.log(tracks);
 
     return (
     <Wrapper>

@@ -84,6 +84,4 @@ const Oceania = styled.img`
     width: 250px;
 `;
 
-
-
-export default Exploration
+export default Exploration;

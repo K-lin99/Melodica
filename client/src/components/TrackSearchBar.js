@@ -107,10 +107,6 @@ const Ul = styled.ul`
     box-shadow: 5px 10px 5px black ;
 `;
 
-const TrackLink = styled(NavLink)`
-    
-`;
-
 const Li = styled.li`
     padding: 5px;
     cursor: pointer;
@@ -123,4 +119,4 @@ const Prediction = styled.span`
     font-weight: bold;
 `;
 
-export default TrackSearchBar
+export default TrackSearchBar;

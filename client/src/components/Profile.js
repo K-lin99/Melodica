@@ -28,7 +28,7 @@ const Profile = () => {
             })
         }
 
-        // // removing playlist
+        // // removing playlist (WIP)
         // const deletePlaylist = () => {
         //     const playlistParameters = {
         //         method: "DELETE",
@@ -92,27 +92,6 @@ const Profile = () => {
             .catch(err => console.log(err))
         }
 
-        // useEffect(() => {
-        //     const playlistParameters = {
-        //         method: "GET",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             "Authorization": "Bearer " + token
-        //         }
-        //     }
-        //     fetch(`https://api.spotify.com/v1/playlists/${currentPlaylist.id}/tracks`, playlistParameters)
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         setTracksNum((data.items).length);
-        //     })
-        //     .catch(err => console.log(err))
-        // },[addedTracks])
-
-        console.log(addedTracks);
-        console.log(playlists);
-        // console.log(tracksNum);
-
-
     return (
         <Wrapper>
                 <ProfileImage src={(user.images[0]).url}/>
@@ -128,7 +107,7 @@ const Profile = () => {
                     return (
                         <FavoriteSongs key={Math.floor(Math.random()*14000000000)}>
                             <AlbumImg src={((track.album).images[0]).url}/>
-                            <TrackName>{track.name}</TrackName>
+                            <h3>{track.name}</h3>
                             <Link href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</Link>
                             <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
                             <Link href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</Link>
@@ -140,7 +119,7 @@ const Profile = () => {
                 )})}
             </TrackInfo>
             <PlaylistsInfo>
-                <Title>Created Playlists</Title>
+                <Title>Custom Playlists</Title>
                 {playlists.map((playlist) => {
                     console.log(playlist);
                     return(
@@ -203,14 +182,14 @@ const NewPlaylist = styled.button`
     cursor: pointer;
 `;
 
-const DeletePlaylist = styled.button`
-    background-color: #2EC0D2;
-    border: none;
-    border-radius: 3px;
-    margin-top: 5px;
-    padding: 4px;
-    cursor: pointer;
-`;
+// const DeletePlaylist = styled.button`
+//     background-color: #2EC0D2;
+//     border: none;
+//     border-radius: 3px;
+//     margin-top: 5px;
+//     padding: 4px;
+//     cursor: pointer;
+// `;
 
 const FavoriteSongs = styled.div`
     margin-top: 20px;
@@ -228,10 +207,6 @@ const AlbumImg = styled.img`
     margin-right: 5px;
     width: 150px;
     border-radius: 15px;
-`;
-
-const TrackName = styled.h3`
-    
 `;
 
 const SecondTrackLink = styled(NavLink)`

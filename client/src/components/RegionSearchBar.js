@@ -6,7 +6,7 @@ const RegionSearchBar = () => {
     const [value, setValue] = useState("");
     const listDisplayer = [""];
     const {setContinent, setRegion} = useContext(ArtistsTracksContext);
-    const [continents, setContinents] = useState([])
+    const [continents, setContinents] = useState([]);
     const regionNames = [];
     let mergedRegionNames = [];
 

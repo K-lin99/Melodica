@@ -4,15 +4,15 @@ import { NavLink } from "react-router-dom"
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 
 const Header = () => {
-    const { tracks, token, setToken, refreshToken, setRefreshToken } = useContext(ArtistsTracksContext)
-    console.log(tracks);
+    const { tracks, token, setToken, refreshToken, setRefreshToken } = useContext(ArtistsTracksContext);
 
+    // function to logout
     const logout = () => {
         setToken("")
         window.localStorage.removeItem("token")
     }
 
-    // passing access and refresh tokens from the BE
+    // passing access and refresh tokens from BE
     useEffect(() => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);

@@ -45,14 +45,11 @@ const login = async (req, res) => {
     // initializing state
     const state = generateRandomString(16)
 
-// creating authorization URL
-
-const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state)
-
-console.log(authorizeURL);
+    // creating authorization URL
+    const authorizeURL = spotifyApi.createAuthorizeURL(scopes, state)
         res.redirect(authorizeURL)
     } catch (error) {
-        
+        console.log(error);
     }
 }
 
@@ -95,8 +92,6 @@ const getCallback = async (req, res) => {
     }
 }
 
-
-
 // returns an array of 5 artists based on a region
 const getRegionalArtists = async (req, res) => {
     // declaring specified region
@@ -136,6 +131,7 @@ const getRegionalArtists = async (req, res) => {
     }
 }
 
+// return an array of the whole database to RegionSearchBar.js
 const getContinents = async (req, res) => {
     // declaring and assigning mongo info to client
     const client = new MongoClient(MONGO_URI, options)
@@ -163,32 +159,4 @@ const getContinents = async (req, res) => {
     }
 }
 
-const getRegion = async (req, res) => {
-    // declaring and assigning mongo info to client
-    const client = new MongoClient(MONGO_URI, options)
-    console.log("test1");
-    try {
-        // connecting to client
-        await client.connect();
-        // selecting database
-        const db = client.db("Melodica");
-        let result = await db.collection("artists").find().toArray()
-        result = result.map((element) => {
-            return element.Region
-        })
-        console.log(result);
-        res.status(200).json({ status: 200, data: result})
-    }
-    // catching and logging errors
-    catch (err){
-        console.log(err.message);
-        res.status(500).json({ status: 500, message: err.message})
-    }
-    // closing client
-    finally{
-        client.close();
-    }
-}
-
-
-module.exports = { getRegionalArtists, getCallback, login, getContinents, getRegion }
+module.exports = { getRegionalArtists, getCallback, login, getContinents }
