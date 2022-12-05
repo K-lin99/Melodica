@@ -33,13 +33,11 @@ const Song = () => {
         setFavoriteTracks((previousTrack) => [...previousTrack, track])
     }
 
-
     const removeFromFavorite = () => {
         setIsFavorite(false)
         const removal = favoriteTracks.filter(song => song !== track)
         setFavoriteTracks(removal);
     }
-
 
     return (
         <Wrapper>

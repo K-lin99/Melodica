@@ -5,8 +5,9 @@ import styled from "styled-components"
 
 const Profile = () => {
     const {user, token, playlists, setPlaylists, favoriteTracks} = useContext(ArtistsTracksContext);
-    const [currentPlaylist, setCurrentPlaylist] = useState("")
-    const [isAdded, setIsAdded] = useState(false)
+    const [currentPlaylist, setCurrentPlaylist] = useState("");
+    const [addedTracks, setAddedTracks] = useState([]);
+    const [isAdded, setIsAdded] = useState(false);
 
 
         // creating playlist
@@ -45,10 +46,34 @@ const Profile = () => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                setAddedTracks((previousTrack) => [...previousTrack, trackID.replace("spotify:track:", "")])
             })
             .catch(err => console.log(err))
         }
 
+        // removing track from playlist
+        const removeTrack = (event, trackID) => {
+            const playlistParameters = {
+                method: "DELETE",
+                body: JSON.stringify({
+                    uris: [trackID] ,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                }
+            }
+            fetch(`https://api.spotify.com/v1/playlists/${currentPlaylist.id}/tracks`, playlistParameters)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setAddedTracks(addedTracks.filter((track) => {
+                    return track !== ((trackID.replace("spotify:track:", "")))
+                }))
+            })
+            .catch(err => console.log(err))
+        }
+        console.log(addedTracks);
 
     return (
         <Wrapper>
@@ -69,7 +94,9 @@ const Profile = () => {
                         <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
                         <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
                         <AlbumLink href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</AlbumLink>
-                        <AddSong onClick={event => addTrack(event, `spotify:track:${track.id}`)}>Add to your playlist</AddSong>
+                        {!addedTracks.includes(track.id)
+                        ?<AddSong onClick={event => addTrack(event, `spotify:track:${track.id}`)}>Add to playlist</AddSong>
+                        :<AddSong onClick={event => removeTrack(event, `spotify:track:${track.id}`)}>Remove from playlist</AddSong>}
                     </FavoriteSongs>
             )})}
             </TrackInfo>
