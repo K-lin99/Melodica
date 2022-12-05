@@ -15,23 +15,26 @@ const CustomPlaylist = () => {
     console.log(playlistTracks);
 
     useEffect(() =>{
-        let tracksParameters = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
+                    const playlistParameters = {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                }
             }
-        }
-        fetch(`https://api.spotify.com/v1/tracks?market=CA&ids=${trackIds}`, tracksParameters)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            setPlaylistTracks(data.tracks)
-        })
-        .catch(err => console.log(err))
-    },[])
+            fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, playlistParameters)
+            .then(response => response.json())
+            .then(data => {
+                console.log((data.items));
+                (data.items).forEach((track) =>{
+                    setPlaylistTracks((previousTrack) => [...previousTrack, track])
+                })
+                console.log(playlistTracks);
+            })
+            .catch(err => console.log(err))
+    },[playlist])
 
-    console.log(playlistTracks);
+    console.log((playlistTracks));
     console.log(playlistTracks.length);
 
     return (
@@ -41,19 +44,23 @@ const CustomPlaylist = () => {
             :<PlaylistInfo>
                 <PlaylistName>{playlist.name}</PlaylistName>
                 <PlaylistOwner>{(playlist.owner).display_name}</PlaylistOwner>
+                {playlistTracks.length === undefined
+                ?<PlaylistSongs>Songs: 0</PlaylistSongs>
+                :<PlaylistSongs>Songs: {playlistTracks.length}</PlaylistSongs>}
                 <PlaylistLink href={(playlist.external_urls).spotify} target="_blank">Check Playlist on Spotify</PlaylistLink>
                 {playlistTracks.length === 0 || playlistTracks.length === undefined
                 ?<Message>Playlist is empty</Message>
                 :<PlaylistDiv>
                 {(Object.values(playlistTracks)).map((track) => {
+                    
                     return (
                     <TrackDiv key={Math.floor(Math.random()*14000000000)}>
-                        <AlbumImg src={((track.album).images[0]).url}/>
-                        <TrackName>{track.name}</TrackName>
-                        <Link href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</Link>
-                        <SecondTrackLink to={`/track/${track.id}`} state={{track: track}}>Check Track on Melodica</SecondTrackLink>
-                        <Link href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</Link>
-                        <Link href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</Link>
+                        <AlbumImg src={(((track.track).album).images[0]).url}/>
+                        <TrackName>{(track.track).name}</TrackName>
+                        <Link href={((track.track).external_urls).spotify} target="_blank">Check Track on Spotify</Link>
+                        <SecondTrackLink to={`/track/${(track.track).id}`} state={{track: track.track}}>Check Track on Melodica</SecondTrackLink>
+                        <Link href={(((track.track).artists[0]).external_urls).spotify} target="_blank">Artist: {((track.track).artists[0]).name}</Link>
+                        <Link href={(((track.track).album).external_urls).spotify} target="_blank">Album: {((track.track).album).name}</Link>
                     </TrackDiv>
                     )})}
                 </PlaylistDiv>}
@@ -88,6 +95,11 @@ const PlaylistName = styled.h2`
 `;
 
 const PlaylistOwner = styled.h3`
+    display: flex;
+    justify-content: center;
+`;
+
+const PlaylistSongs = styled.p`
     display: flex;
     justify-content: center;
 `;

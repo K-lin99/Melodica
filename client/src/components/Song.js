@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ArtistsTracksContext } from "./ArtistsTracksContext";
 import styled from "styled-components"
@@ -8,6 +8,13 @@ const Song = () => {
     const { favoriteTracks, setFavoriteTracks } = useContext(ArtistsTracksContext)
     const { track } = location.state
     const [isFavorite, setIsFavorite] = useState(false)
+
+    // check if track is already favorite
+    useEffect(() => {
+        if (favoriteTracks.some(song => song.name === track.name )){
+            setIsFavorite(true);
+        }
+    },[])
 
     // padding seconds to 2 digits if less than 10
     const padTo2Digits = (num) => {
@@ -32,11 +39,13 @@ const Song = () => {
         setFavoriteTracks((previousTrack) => [...previousTrack, track])
     }
 
+    // remove tracks from favorite tracks array
     const removeFromFavorite = () => {
         setIsFavorite(false)
-        const removal = favoriteTracks.filter(song => song !== track)
-        setFavoriteTracks(removal);
-    }
+        setFavoriteTracks(favoriteTracks.filter((value, index) => {
+            return index !== (favoriteTracks.length - 1)
+        }))
+    } 
 
     return (
         <Wrapper>
@@ -47,7 +56,7 @@ const Song = () => {
                 <TrackLink href={(track.external_urls).spotify} target="_blank">Check Track on Spotify</TrackLink>
                 <ArtistLink href={((track.artists[0]).external_urls).spotify} target="_blank">Artist: {(track.artists[0]).name}</ArtistLink>
                 <AlbumLink href={((track.album).external_urls).spotify} target="_blank">Album: {(track.album).name}</AlbumLink>
-                {isFavorite === false
+                {!isFavorite
                 ?<Favorite onClick={AddToFavorite}>Favorite Track</Favorite>
                 :<Favorite onClick={removeFromFavorite}>Unfavorite Track</Favorite>}
             </SongInfo>

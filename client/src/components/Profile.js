@@ -12,7 +12,7 @@ const Profile = () => {
             const playlistParameters = {
                 method: "POST",
                 body: JSON.stringify({
-                    name: `My Melodica Playlist ${playlists.length}`,
+                    name: `My Melodica Playlist ${playlists.length + 1}`,
                     public: false}), 
                 headers: {
                     "Content-Type": "application/json",
