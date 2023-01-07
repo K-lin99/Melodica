@@ -9,7 +9,7 @@ to make use of this application
 
 The Frontend uses JavaScript for the logic and React.js to render the different pages which are styled with HTML and CSS.
 
-The Backend uses a Mongo DB database that stores the Spotify IDs of various artists which are used to fetch their top 10 tracks from the Spotify API when a region is 
-selected by the user.
+The Backend uses a Mongo DB database that stores the Spotify IDs of various artists. When a region is selected, the IDs of the artists corresponding to the selected 
+region are used to fetch their top 10 tracks. 
 
 
