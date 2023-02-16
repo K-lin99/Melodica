@@ -29,7 +29,7 @@ After generating a playlist, the user can check the playlist, the album, the son
 
 ![Playlist-Site](https://user-images.githubusercontent.com/73728907/219442997-17788825-2561-455b-912a-2905b3bfd125.png)
 
-The user can also check the track on the Melodica app which allows him to favorite or unfavorite the track.
+The user can also check the track on the Melodica app which allows them to favorite or unfavorite the track.
 
 ![Track](https://user-images.githubusercontent.com/73728907/219443480-f2bffa5d-8422-45c2-ae80-be04c51bf27b.png)
 
@@ -39,5 +39,10 @@ playlists and fill them with their favorited tracks.
 ![Profile](https://user-images.githubusercontent.com/73728907/219443642-8c1c55a5-d96b-48a5-9af3-5f4ce6d77b14.png)
 
 ![Playlist-Custom](https://user-images.githubusercontent.com/73728907/219444583-83ee4185-c9b2-4c2f-b7ee-02fe44a6e999.png)
+
+All of the created playlists are available in the user's Spotify! 
+
+![Playlist-Spotify](https://user-images.githubusercontent.com/73728907/219445807-3ea56e74-87e0-4a0f-a542-4c6d9dc19c80.png)
+
 
 
