@@ -30,7 +30,7 @@ After generating a playlist, the user can check the playlist, the album, the son
 ![Playlist-Site](https://user-images.githubusercontent.com/73728907/219442997-17788825-2561-455b-912a-2905b3bfd125.png)
 
 The user can also check the track on the Melodica app which allows them to favorite or unfavorite the track.
-
+ 
 ![Track](https://user-images.githubusercontent.com/73728907/219443480-f2bffa5d-8422-45c2-ae80-be04c51bf27b.png)
 
 The profile page displays the information of the user's Spotify account and can link them to their account on Spotify. The user can also create their own custom 
